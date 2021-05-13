@@ -1,0 +1,21 @@
+.sidebar-item {
+  padding: 5px 10px 5px 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: 0.9rem;
+  height: 60px;
+}
+
+.sidebar-item-logo {
+  margin-right: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  background-color: blue;
+}
+
+.selected {
+  border-left: 8px solid blue;
+  padding: 5px 10px 5px 42px;
+}

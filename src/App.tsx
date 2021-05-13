@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./app.css";
+import Navbar from "./components/navbar/Navbar";
+import SidebarItem from "./components/sidebar-item/SidebarItem";
+import SidebarTitle from "./components/sidebar-title/SidebarTitle";
+import Sidebar from "./components/sidebar/Sidebar";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <section className="main-content">
+        <Sidebar>
+          <SidebarItem text="Fil d'actualité" isSelected />
+          <SidebarItem text="Créer un Club" />
+          <SidebarTitle title="Mes Clubs" />
+          <SidebarItem text="IEEE Ensa Fès" />
+          <SidebarItem text="Junior Entreprises" />
+        </Sidebar>
+      </section>
+      <div className="content"></div>
     </div>
   );
 }

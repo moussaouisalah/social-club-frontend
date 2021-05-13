@@ -1,0 +1,47 @@
+.navbar {
+  height: 70px;
+  padding: 5px 10px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-input {
+  height: 40px;
+  border-radius: 5px;
+  border-color: #bebebe;
+  background-color: #fcfcfc;
+  border-style: solid;
+  border-width: 0.1px;
+  padding: 1px 10px;
+  color: #bebebe;
+  border: none;
+}
+
+.logo {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  background-color: blue;
+}
+
+.nav-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 60px;
+}
+
+.user-image {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: blue;
+}
+
+@media (max-width: 800px) {
+  .user-name {
+    display: none;
+  }
+}
