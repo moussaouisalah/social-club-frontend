@@ -19,7 +19,7 @@ type PostCardProps = {
 
 const makeStyles = (color: string) => ({
   border: {
-    border: "solid 1px blue",
+    border: "solid 1px " + color,
   } as React.CSSProperties,
   mainColor: {
     color,

@@ -19,7 +19,7 @@ const makeStyles = (color: string) => ({
     color,
   } as React.CSSProperties,
   border: {
-    border: "solid 1px blue",
+    border: "solid 1px " + color,
   } as React.CSSProperties,
 });
 
