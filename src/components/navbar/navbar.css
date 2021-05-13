@@ -38,6 +38,7 @@
   width: 40px;
   border-radius: 50%;
   background-color: blue;
+  object-fit: cover;
 }
 
 @media (max-width: 800px) {
