@@ -1,5 +1,7 @@
 import React from "react";
 import "./navbar.css";
+import defaultImage from "../../assets/default-profile.jpg";
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 const Navbar = () => {
   return (
@@ -10,9 +12,11 @@ const Navbar = () => {
       </div>
       <div>
         <div className="nav-user">
-          <div className="user-image"></div>
+          <img className="user-image" src={defaultImage} alt="user" />
           <div className="user-name">Salaheddine Moussaoui</div>
-          <div className="user-dropdown">t</div>
+          <div className="user-dropdown">
+            <KeyboardArrowDownIcon />
+          </div>
         </div>
       </div>
     </nav>

@@ -1,0 +1,24 @@
+.club-card {
+  padding: 20px 30px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.club-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.club-name {
+  font-weight: bold;
+}
+
+.club-role {
+  font-size: 0.8em;
+  color: #707070;
+}
