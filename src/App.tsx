@@ -3,6 +3,7 @@ import "./app.css";
 import ClubMemberCard from "./components/club-member-card/ClubMemberCard";
 import ClubProfile from "./components/club-profile/ClubProfile";
 import Content from "./components/content/Content";
+import InviteMemberCard from "./components/invite-member-card/InviteMemberCard";
 import Navbar from "./components/navbar/Navbar";
 import PostCard from "./components/post-card/PostCard";
 import SidebarItem from "./components/sidebar-item/SidebarItem";
@@ -46,12 +47,41 @@ function App() {
               lastName="moussaoui"
               role="editeur"
               currentUserRole={{
+                id: 1,
                 name: "test",
                 canEdit: true,
                 canRemove: true,
                 canPost: true,
                 canInvite: true,
               }}
+            />
+            <InviteMemberCard
+              clubRoles={[
+                {
+                  id: 1,
+                  name: "test",
+                  canEdit: true,
+                  canRemove: true,
+                  canPost: true,
+                  canInvite: true,
+                },
+                {
+                  id: 1,
+                  name: "test2",
+                  canEdit: true,
+                  canRemove: true,
+                  canPost: true,
+                  canInvite: true,
+                },
+                {
+                  id: 1,
+                  name: "test3",
+                  canEdit: true,
+                  canRemove: true,
+                  canPost: true,
+                  canInvite: true,
+                },
+              ]}
             />
           </Content>
         </div>

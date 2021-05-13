@@ -1,0 +1,39 @@
+.invite-user-card {
+  padding: 20px 30px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 100px;
+  grid-column-gap: 10px;
+  align-items: center;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.invite-user-input {
+  height: 30px;
+  border-radius: 5px;
+  border-color: #bebebe;
+  background-color: #fcfcfc;
+  border-style: solid;
+  border-width: 0.1px;
+  padding: 1px 10px;
+  color: #bebebe;
+}
+
+.invite-user-select {
+  height: 30px;
+  border-radius: 5px;
+  background-color: #fcfcfc;
+  border-style: solid;
+  border-width: 0.1px;
+  padding: 1px 10px;
+}
+
+.invite-user-button {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
