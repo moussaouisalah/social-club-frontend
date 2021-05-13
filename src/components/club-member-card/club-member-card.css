@@ -1,0 +1,55 @@
+.member-card {
+  padding: 20px 30px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+.member-data-container {
+  display: flex;
+  align-items: center;
+}
+
+.member-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.member-name {
+  font-weight: bold;
+}
+
+.member-role {
+  font-size: 0.8em;
+  color: #707070;
+}
+
+.member-buttons {
+  width: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-row-gap: 20px;
+}
+
+.member-edit-button {
+  width: 30px;
+  height: 30px;
+  color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-delete-button {
+  width: 30px;
+  height: 30px;
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

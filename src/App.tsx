@@ -1,5 +1,6 @@
 import React from "react";
 import "./app.css";
+import ClubMemberCard from "./components/club-member-card/ClubMemberCard";
 import ClubProfile from "./components/club-profile/ClubProfile";
 import Content from "./components/content/Content";
 import Navbar from "./components/navbar/Navbar";
@@ -39,6 +40,18 @@ function App() {
               clubName="IEEE"
               image="https://via.placeholder.com/150"
               commentsCount={0}
+            />
+            <ClubMemberCard
+              firstName="salah"
+              lastName="moussaoui"
+              role="editeur"
+              currentUserRole={{
+                name: "test",
+                canEdit: true,
+                canRemove: true,
+                canPost: true,
+                canInvite: true,
+              }}
             />
           </Content>
         </div>
