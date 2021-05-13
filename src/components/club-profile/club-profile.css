@@ -13,13 +13,19 @@
   padding: 5px 0 0 60px;
 }
 
-.profile-data {
+.profile-data-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid #707070;
   width: 80%;
   max-width: 1200px;
+}
+
+.profile-data {
+  display: flex;
+  align-items: center;
 }
 
 .profile-image {
@@ -34,6 +40,16 @@
   font-weight: bold;
 }
 
+.join-button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .tabs {
   display: flex;
   align-items: center;
@@ -43,10 +59,4 @@
 
 .tab {
   padding: 10px 20px;
-}
-
-.selected-tab {
-  border-bottom: solid 5px;
-  padding: 10px 20px 5px 20px;
-  color: #698ef3;
 }

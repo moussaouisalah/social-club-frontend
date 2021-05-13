@@ -1,5 +1,6 @@
 import React from "react";
 import "./app.css";
+import ClubProfile from "./components/club-profile/ClubProfile";
 import Content from "./components/content/Content";
 import Navbar from "./components/navbar/Navbar";
 import PostCard from "./components/post-card/PostCard";
@@ -22,8 +23,8 @@ function App() {
           <SidebarItem text="Junior Entreprises" color="#A7345B" />
         </Sidebar>
         <div className="content">
-          <UserProfile
-            name="salaheddine moussaoui"
+          <ClubProfile
+            name="IEEE ENSA Fès"
             tabs={[{ onClick: () => null, name: "Clubs", isSelected: true }]}
           />
           <Content>
