@@ -1,0 +1,52 @@
+.create-post-card {
+  margin-bottom: 20px;
+  padding: 20px 30px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 60px auto;
+  max-width: 800px;
+}
+
+.create-post-header-image {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.create-post-content {
+  width: 100%;
+}
+
+.create-post-textarea {
+  width: 100%;
+  min-height: 100px;
+  border-radius: 5px;
+  border: 1px solid #bebebe;
+  background-color: #fcfcfc;
+  padding: 10px;
+  resize: vertical;
+}
+
+.create-post-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.create-post-image {
+  border: none;
+  background: none;
+  font-weight: bold;
+  color: orange;
+  cursor: pointer;
+}
+
+.create-post-button {
+  width: 100px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}

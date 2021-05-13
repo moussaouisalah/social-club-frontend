@@ -3,6 +3,7 @@ import "./app.css";
 import ClubMemberCard from "./components/club-member-card/ClubMemberCard";
 import ClubProfile from "./components/club-profile/ClubProfile";
 import Content from "./components/content/Content";
+import CreatePostCard from "./components/create-post-card/CreatePostCard";
 import InviteMemberCard from "./components/invite-member-card/InviteMemberCard";
 import Navbar from "./components/navbar/Navbar";
 import PostCard from "./components/post-card/PostCard";
@@ -83,6 +84,7 @@ function App() {
                 },
               ]}
             />
+            <CreatePostCard />
           </Content>
         </div>
       </section>
