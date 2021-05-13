@@ -40,6 +40,11 @@
   font-weight: bold;
 }
 
+.club-members-count {
+  color: #8f8f8f;
+  font-size: 0.8em;
+}
+
 .join-button {
   border: none;
   width: 100px;

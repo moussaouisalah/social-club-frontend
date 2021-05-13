@@ -26,6 +26,7 @@ function App() {
           <ClubProfile
             name="IEEE ENSA Fès"
             tabs={[{ onClick: () => null, name: "Clubs", isSelected: true }]}
+            membersCount={5}
           />
           <Content>
             <UserClubCard name="IEEE ENSA Fès" role="Editeur" color="#347DA7" />

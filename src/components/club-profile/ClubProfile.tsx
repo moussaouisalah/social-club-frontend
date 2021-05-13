@@ -12,6 +12,7 @@ type ClubProfileProps = {
   tabs: [{ name: string; onClick: () => void; isSelected?: boolean }];
   color?: string;
   role?: Role | undefined;
+  membersCount: number;
 };
 
 const makeStyles = (color: string) => ({
@@ -35,6 +36,7 @@ const ClubProfile = ({
   tabs,
   color = primaryColor,
   role = undefined,
+  membersCount,
 }: ClubProfileProps) => {
   const styles = makeStyles(color);
   return (
@@ -44,8 +46,11 @@ const ClubProfile = ({
         <div className="profile-data-container">
           <div className="profile-data">
             <img className="profile-image" src={profileImage} alt="profile" />
-            <div className="profile-name" style={styles.color}>
-              {name}
+            <div>
+              <div className="profile-name" style={styles.color}>
+                {name}
+              </div>
+              <div className="club-members-count">{membersCount} membres</div>
             </div>
           </div>
           {!role && (
