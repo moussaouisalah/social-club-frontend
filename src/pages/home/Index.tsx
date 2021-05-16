@@ -1,15 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import ClubProfile from "../../components/club-profile/ClubProfile";
 import Content from "../../components/content/Content";
 import Navbar from "../../components/navbar/Navbar";
 import SidebarItem from "../../components/sidebar-item/SidebarItem";
 import SidebarTitle from "../../components/sidebar-title/SidebarTitle";
 import Sidebar from "../../components/sidebar/Sidebar";
+import { authProvider } from "../../providers/authProvider";
 
 const Index = () => {
-  const [user, setUser] = useState(null);
+  // TODO: add user to types
+  const [user, setUser]: any = useState(null);
 
-  useEffect(() => {}, []);
+  const history = useHistory();
+
+  useEffect(() => {
+    authProvider
+      .getIdentity()
+      .then((user) => {
+        setUser(user);
+      })
+      .catch((error) => {
+        authProvider.logout();
+        history.push("/login");
+      });
+  }, []);
 
   return (
     <div className="App">
