@@ -35,7 +35,8 @@
       "canRemove": true,
       "canPost": true,
       "canEdit": true,
-      "isDefault": true
+      "isDefault": true,
+      "clubId": 1
     }
   ],
   "members": [
