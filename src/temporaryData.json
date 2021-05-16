@@ -46,5 +46,11 @@
       "type": "member",
       "roleId": 1
     }
+  ],
+  "auth": [
+    {
+      "token": "oijrpekg",
+      "userId": 1
+    }
   ]
 }
