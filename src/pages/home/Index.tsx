@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ClubProfile from "../../components/club-profile/ClubProfile";
 import Content from "../../components/content/Content";
 import Navbar from "../../components/navbar/Navbar";
@@ -7,6 +7,10 @@ import SidebarTitle from "../../components/sidebar-title/SidebarTitle";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 const Index = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {}, []);
+
   return (
     <div className="App">
       <Navbar />

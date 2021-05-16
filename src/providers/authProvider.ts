@@ -17,4 +17,4 @@ export const logout = () => {
   localStorage.removeItem(TOKEN_NAME);
 };
 
-export const login = () => {};
+export const login = (email: string, password: string) => {};
