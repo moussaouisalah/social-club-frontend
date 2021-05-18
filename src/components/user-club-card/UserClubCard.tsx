@@ -20,7 +20,7 @@ const makeStyles = (color: string) => ({
 });
 
 const UserClubCard = ({
-  image = defaultImage,
+  image,
   name,
   role,
   color = primaryColor,
@@ -28,7 +28,7 @@ const UserClubCard = ({
   const styles = makeStyles(color);
   return (
     <div className="club-card" style={styles.clubCard}>
-      <img className="club-image" src={image} alt="club" />
+      <img className="club-image" src={image || defaultImage} alt="club" />
       <div className="club-data">
         <div className="club-name" style={styles.clubName}>
           {name}

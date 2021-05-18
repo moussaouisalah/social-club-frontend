@@ -14,7 +14,7 @@ type ClubProfileProps = {
   color?: string;
   role?: Role | undefined;
   membersCount: number;
-  tabChangeHandler: (TabType: ClubTabType) => void;
+  tabChangeHandler: (tabType: ClubTabType) => void;
 };
 
 const makeStyles = (color: string) => ({

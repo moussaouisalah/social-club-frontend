@@ -92,7 +92,7 @@ const Club = ({ user }: ClubProps) => {
     if (!userRole) {
       createdTabs = [
         {
-          name: "Memberes",
+          name: "Membres",
           isSelected: true,
           type: ClubTabType.Membres,
         },
@@ -150,7 +150,7 @@ const Club = ({ user }: ClubProps) => {
   return (
     <>
       <ClubProfile
-        name={(club?.name || "") as string}
+        name={club?.name || ""}
         tabs={tabs}
         membersCount={members.length}
         role={userRole}
@@ -174,8 +174,9 @@ const Club = ({ user }: ClubProps) => {
             />
           ))
         ) : selectedTab?.type === ClubTabType.Membres ? (
-          members.map((member) => (
+          members.map((member, key) => (
             <ClubMemberCard
+              key={key}
               profileImage={member.user?.profileImage}
               firstName={member.user?.firstName || ""}
               lastName={member.user?.lastName || ""}

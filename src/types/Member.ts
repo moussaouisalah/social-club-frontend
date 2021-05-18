@@ -1,3 +1,4 @@
+import { Club } from "./Club";
 import { Role } from "./Role";
 import { User } from "./User";
 
@@ -9,4 +10,5 @@ export type Member = {
 
   user?: User;
   role?: Role;
+  club?: Club;
 };
