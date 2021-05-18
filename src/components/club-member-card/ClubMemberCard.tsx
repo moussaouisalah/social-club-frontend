@@ -9,8 +9,8 @@ type ClubMemberCardProps = {
   profileImage?: string;
   firstName: string;
   lastName: string;
-  role: string;
-  currentUserRole: Role;
+  role?: Role;
+  currentUserRole?: Role;
   color?: string;
 };
 
@@ -35,21 +35,25 @@ const ClubMemberCard = ({
   return (
     <div className="member-card" style={styles.border}>
       <div className="member-data-container">
-        <img className="member-image" src={profileImage} alt="profile" />
+        <img
+          className="member-image"
+          src={profileImage || defaultProfile}
+          alt="profile"
+        />
         <div className="member-data">
           <div className="member-name" style={styles.color}>
-            {firstName + " " + lastName}
+            {firstName} {lastName}
           </div>
-          <div className="member-role">{role}</div>
+          <div className="member-role">{role?.name}</div>
         </div>
       </div>
       <div className="member-buttons">
-        {currentUserRole.canEdit && (
+        {currentUserRole?.canEdit && (
           <div className="member-edit-button">
             <Create />
           </div>
         )}
-        {currentUserRole.canRemove && (
+        {currentUserRole?.canRemove && (
           <div className="member-delete-button">
             <Delete />
           </div>

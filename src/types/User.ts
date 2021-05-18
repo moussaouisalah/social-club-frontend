@@ -1,8 +1,8 @@
 export type User = {
   id: number;
-  firstName: String;
-  lastName: String;
-  email: String;
-  profileImage: String;
-  coverImage: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  profileImage: string;
+  coverImage: string;
 };

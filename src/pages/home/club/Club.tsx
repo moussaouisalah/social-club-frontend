@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ClubMemberCard from "../../../components/club-member-card/ClubMemberCard";
 import ClubProfile from "../../../components/club-profile/ClubProfile";
 import Content from "../../../components/content/Content";
 import PostCard from "../../../components/post-card/PostCard";
@@ -163,16 +164,8 @@ const Club = ({ user }: ClubProps) => {
               firstName={(post.user?.firstName || "") as string}
               lastName={(post.user?.lastName || "") as string}
               dateTime={post.creationDateTime}
-              profileImage={
-                post.club?.profileImage !== ""
-                  ? post.club?.profileImage
-                  : undefined
-              }
-              color={
-                post.club?.primaryColor !== ""
-                  ? post.club?.primaryColor
-                  : undefined
-              }
+              profileImage={club?.profileImage || undefined}
+              color={club?.primaryColor || undefined}
               text={post.text}
               image={post.image}
               likesCount={post.likesCount || 0}
@@ -180,7 +173,16 @@ const Club = ({ user }: ClubProps) => {
             />
           ))
         ) : selectedTab?.type === ClubTabType.Membres ? (
-          <></>
+          members.map((member) => (
+            <ClubMemberCard
+              profileImage={member.user?.profileImage}
+              firstName={member.user?.firstName || ""}
+              lastName={member.user?.lastName || ""}
+              role={member.role}
+              currentUserRole={userRole}
+              color={club?.primaryColor || undefined}
+            />
+          ))
         ) : selectedTab?.type === ClubTabType.Gestion ? (
           <></>
         ) : (

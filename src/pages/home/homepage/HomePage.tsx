@@ -38,16 +38,12 @@ const HomePage = ({ user }: HomePageProps) => {
       {posts.map((post, key) => (
         <PostCard
           key={key}
-          firstName={(post.user?.firstName || "") as string}
-          lastName={(post.user?.lastName || "") as string}
-          clubName={post.club?.name !== "" ? post.club?.name : undefined}
+          firstName={post.user?.firstName || ""}
+          lastName={post.user?.lastName || ""}
+          clubName={post.club?.name}
           dateTime={post.creationDateTime}
-          profileImage={
-            post.club?.profileImage !== "" ? post.club?.profileImage : undefined
-          }
-          color={
-            post.club?.primaryColor !== "" ? post.club?.primaryColor : undefined
-          }
+          profileImage={post.club?.profileImage}
+          color={post.club?.primaryColor}
           text={post.text}
           image={post.image}
           likesCount={post.likesCount || 0}
