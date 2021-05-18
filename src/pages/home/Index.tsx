@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Route, Router, Switch, useHistory } from "react-router-dom";
-import ClubProfile from "../../components/club-profile/ClubProfile";
-import Content from "../../components/content/Content";
 import Navbar from "../../components/navbar/Navbar";
 import SidebarItem from "../../components/sidebar-item/SidebarItem";
 import SidebarTitle from "../../components/sidebar-title/SidebarTitle";
@@ -13,6 +11,7 @@ import { User as UserType } from "../../types/User";
 import { Club as ClubType } from "../../types/Club";
 import Club from "./club/Club";
 import User from "./user/User";
+import HomePage from "./homepage/HomePage";
 
 const Index = () => {
   // TODO: add user to types
@@ -70,23 +69,17 @@ const Index = () => {
         <div className="content">
           <Router history={history}>
             <Switch>
-              <Route path="/club/:id" exact>
+              <Route path="/club/:id">
                 <Club />
               </Route>
-              <Route path="/user/:id" exact>
+              <Route path="/user/:id">
                 <User />
               </Route>
               <Route path="/">
-                <Index />
+                <HomePage user={user} />
               </Route>
             </Switch>
           </Router>
-          <ClubProfile
-            name="IEEE ENSA Fès"
-            tabs={[{ onClick: () => null, name: "Clubs", isSelected: true }]}
-            membersCount={5}
-          />
-          <Content></Content>
         </div>
       </section>
     </div>

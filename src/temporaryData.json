@@ -24,7 +24,9 @@
       "id": 1,
       "text": "hello",
       "image": "",
-      "creationDateTime": ""
+      "creationDateTime": "",
+      "userId": 1,
+      "clubId": 1
     }
   ],
   "roles": [

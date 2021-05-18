@@ -8,7 +8,7 @@ export const userProvider = {
     console.log("userProvider getOne: Start (id: " + id + ")");
     return new Promise((resolve, reject) => {
       axios
-        .get(SERVER_URL + USERS_ENDPOINT + id)
+        .get(SERVER_URL + USERS_ENDPOINT + "/" + id)
         .then((response) => {
           console.log(
             "userProvider getOne: Response (" + JSON.stringify(response) + ")"
