@@ -42,7 +42,7 @@ const HomePage = ({ user }: HomePageProps) => {
           lastName={post.user?.lastName || ""}
           clubName={post.club?.name}
           dateTime={post.creationDateTime}
-          profileImage={post.club?.profileImage}
+          profileImage={post.club?.profileImage || undefined}
           color={post.club?.primaryColor}
           text={post.text}
           image={post.image}

@@ -155,6 +155,7 @@ const Club = ({ user }: ClubProps) => {
         membersCount={members.length}
         role={userRole}
         tabChangeHandler={handleTabChange}
+        color={club?.primaryColor || undefined}
       />
       <Content>
         {selectedTab?.type === ClubTabType.Discussion ? (

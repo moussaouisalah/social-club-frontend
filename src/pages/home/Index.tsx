@@ -49,12 +49,19 @@ const Index = () => {
     history.push("/club/" + clubId);
   };
 
+  const handleRedirectToHomePage = () => {
+    history.push("/");
+  };
+
   return (
     <div className="App">
       <Navbar user={user} />
       <section className="main-content">
         <Sidebar>
-          <SidebarItem text="Fil d'actualité" isSelected />
+          <SidebarItem
+            text="Fil d'actualité"
+            onClick={handleRedirectToHomePage}
+          />
           <SidebarItem text="Créer un Club" />
           <SidebarTitle title="Mes Clubs" />
           {clubs.map((club, key) => (
