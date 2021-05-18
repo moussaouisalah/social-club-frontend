@@ -4,15 +4,17 @@ import { primaryColor } from "../../theme.json";
 import defaultCover from "../../assets/default-cover.jpg";
 import defaultClub from "../../assets/default-club.png";
 import { Role } from "../../types/Role";
+import { ClubTab, ClubTabType } from "../../types/ClubTab";
 
 type ClubProfileProps = {
   coverImage?: string;
   profileImage?: string;
   name: string;
-  tabs: [{ name: string; onClick: () => void; isSelected?: boolean }];
+  tabs: ClubTab[];
   color?: string;
   role?: Role | undefined;
   membersCount: number;
+  tabChangeHandler: (TabType: ClubTabType) => void;
 };
 
 const makeStyles = (color: string) => ({
@@ -37,6 +39,7 @@ const ClubProfile = ({
   color = primaryColor,
   role = undefined,
   membersCount,
+  tabChangeHandler,
 }: ClubProfileProps) => {
   const styles = makeStyles(color);
   return (
@@ -60,11 +63,11 @@ const ClubProfile = ({
           )}
         </div>
         <div className="tabs">
-          {tabs.map(({ name, onClick, isSelected }, key: number) => (
+          {tabs.map(({ name, isSelected, type }, key: number) => (
             <div
               className={"tab"}
               style={isSelected ? styles.selectedTab : {}}
-              onClick={onClick}
+              onClick={() => tabChangeHandler(type)}
               key={key}
             >
               {name}

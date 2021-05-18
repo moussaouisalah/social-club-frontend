@@ -70,7 +70,7 @@ const Index = () => {
           <Router history={history}>
             <Switch>
               <Route path="/club/:id">
-                <Club />
+                <Club user={user} />
               </Route>
               <Route path="/user/:id">
                 <User />
