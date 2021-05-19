@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add login
 - add sign up
 - add logout
 - add edit user
