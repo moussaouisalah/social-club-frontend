@@ -18,6 +18,7 @@
 
 .club-name {
   font-weight: bold;
+  cursor: pointer;
 }
 
 .club-role {

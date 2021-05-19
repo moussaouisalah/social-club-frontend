@@ -4,8 +4,10 @@ import defaultProfile from "../../assets/default-profile.jpg";
 import "./club-member-card.css";
 import { Create, Delete } from "@material-ui/icons";
 import { primaryColor } from "../../theme.json";
+import { useHistory } from "react-router-dom";
 
 type ClubMemberCardProps = {
+  userId: number;
   profileImage?: string;
   firstName: string;
   lastName: string;
@@ -21,9 +23,13 @@ const makeStyles = (color: string) => ({
   border: {
     border: "solid 1px " + color,
   } as React.CSSProperties,
+  clickable: {
+    cursor: "pointer",
+  },
 });
 
 const ClubMemberCard = ({
+  userId,
   profileImage = defaultProfile,
   firstName,
   lastName,
@@ -31,6 +37,12 @@ const ClubMemberCard = ({
   currentUserRole,
   color = primaryColor,
 }: ClubMemberCardProps) => {
+  const history = useHistory();
+
+  const handleRedirectToUser = () => {
+    history.push("/user/" + userId);
+  };
+
   const styles = makeStyles(color);
   return (
     <div className="member-card" style={styles.border}>
@@ -41,7 +53,11 @@ const ClubMemberCard = ({
           alt="profile"
         />
         <div className="member-data">
-          <div className="member-name" style={styles.color}>
+          <div
+            className="member-name"
+            style={{ ...styles.color, ...styles.clickable }}
+            onClick={handleRedirectToUser}
+          >
             {firstName} {lastName}
           </div>
           <div className="member-role">{role?.name}</div>

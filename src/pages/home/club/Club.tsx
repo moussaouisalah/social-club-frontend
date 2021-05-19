@@ -162,6 +162,7 @@ const Club = ({ user }: ClubProps) => {
           posts.map((post, key) => (
             <PostCard
               key={key}
+              userId={post.userId}
               firstName={(post.user?.firstName || "") as string}
               lastName={(post.user?.lastName || "") as string}
               dateTime={post.creationDateTime}
@@ -176,6 +177,7 @@ const Club = ({ user }: ClubProps) => {
         ) : selectedTab?.type === ClubTabType.Membres ? (
           members.map((member, key) => (
             <ClubMemberCard
+              userId={member.userId}
               key={key}
               profileImage={member.user?.profileImage}
               firstName={member.user?.firstName || ""}

@@ -1,10 +1,14 @@
 import { ChatBubble, ThumbUpSharp } from "@material-ui/icons";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import defaultProfile from "../../assets/default-profile.jpg";
+import { postProvider } from "../../providers/data-providers/postProvider";
 import { primaryColor } from "../../theme.json";
 import "./post-card.css";
 
 type PostCardProps = {
+  userId?: number;
+  clubId?: number;
   firstName: string;
   lastName: string;
   dateTime: Date;
@@ -24,9 +28,14 @@ const makeStyles = (color: string) => ({
   mainColor: {
     color,
   } as React.CSSProperties,
+  clickable: {
+    cursor: "pointer",
+  } as React.CSSProperties,
 });
 
 const PostCard = ({
+  userId,
+  clubId,
   firstName,
   lastName,
   dateTime,
@@ -39,6 +48,22 @@ const PostCard = ({
   commentsCount,
 }: PostCardProps) => {
   const [isTextFullLength, setTextFullLength] = useState(text.length < 200);
+
+  const history = useHistory();
+
+  const handleRedirectToClub = () => {
+    history.push("/club/" + clubId);
+  };
+
+  const handleRedirectToUser = () => {
+    history.push("/user/" + userId);
+  };
+
+  const handleToggleLike = () => {
+    // TODO
+    //postProvider.togglePostLike()
+  };
+
   const styles = makeStyles(color);
   return (
     <div className="post" style={styles.border}>
@@ -46,7 +71,18 @@ const PostCard = ({
         <img className="post-header-image" src={profileImage} alt="profile" />
         <div className="post-header-data">
           <div className="post-header-name" style={styles.mainColor}>
-            {firstName + " " + lastName} {clubName ? "> " + clubName : ""}
+            <span
+              onClick={userId ? handleRedirectToUser : undefined}
+              style={{ cursor: "pointer" }}
+            >
+              {firstName + " " + lastName}
+            </span>{" "}
+            <span
+              onClick={clubId ? handleRedirectToClub : undefined}
+              style={{ cursor: "pointer" }}
+            >
+              {clubName ? "> " + clubName : ""}
+            </span>
           </div>
           <div className="post-header-time">{dateTime.toString()}</div>
         </div>
@@ -65,7 +101,11 @@ const PostCard = ({
       </div>
       {image && <img className="post-image" src={image} alt="post" />}
       <div className="post-reactions">
-        <div className="likes">
+        <div
+          className="likes"
+          onClick={handleToggleLike}
+          style={styles.clickable}
+        >
           <div className="like-icon" style={styles.mainColor}>
             <ThumbUpSharp />
           </div>

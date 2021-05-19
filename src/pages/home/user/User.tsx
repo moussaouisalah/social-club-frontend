@@ -115,6 +115,7 @@ const User = ({ currentUser }: UserProps) => {
           members.map((member, key) => (
             <UserClubCard
               key={key}
+              id={member.clubId}
               image={member.club?.profileImage}
               name={member.club?.name || ""}
               role={member.role?.name || ""}
