@@ -3,7 +3,6 @@
 ## TODO
 
 - add sign up
-- add logout
 - add edit user
 - add change password
 

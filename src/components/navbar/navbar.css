@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .text-input {
@@ -39,6 +40,31 @@
   border-radius: 50%;
   background-color: blue;
   object-fit: cover;
+}
+
+.user-dropdown {
+  cursor: pointer;
+}
+
+.user-dropdown-modal {
+  position: absolute;
+  background: white;
+  border: solid 1px gray;
+  top: 100%;
+  z-index: 100;
+  right: 0;
+  min-width: 60px;
+  -webkit-box-shadow: 5px 13px 23px 5px #cccccc;
+  box-shadow: 5px 13px 23px 5px #cccccc;
+}
+
+.user-dropdown-modal-item {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.user-dropdown-modal-item:hover {
+  color: #bebebe;
 }
 
 @media (max-width: 800px) {
