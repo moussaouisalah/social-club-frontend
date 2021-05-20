@@ -80,7 +80,7 @@ const Index = () => {
                 <Club user={user} />
               </Route>
               <Route path="/user/:id">
-                <User currentUser={user} />
+                <User currentUser={user} setCurrentUser={setUser} />
               </Route>
               <Route path="/">
                 <HomePage user={user} />

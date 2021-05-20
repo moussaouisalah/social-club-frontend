@@ -2,6 +2,7 @@ import axios from "axios";
 import { users } from "../../temporaryData.json";
 import { SERVER_URL, USERS_ENDPOINT } from "../../config.json";
 import { User } from "../../types/User";
+import { resolve } from "url";
 
 export const userProvider = {
   getOne: (id: number): Promise<User> => {
@@ -42,13 +43,34 @@ export const userProvider = {
       resolve(usersList);
     });
   },
+  updateUser: (
+    id: number,
+    firstName: string,
+    lastName: string,
+    email: string
+  ) => {
+    return axios
+      .put(SERVER_URL + USERS_ENDPOINT + "/" + id, {
+        firstName,
+        lastName,
+        email,
+        profileImage: "",
+        coverImage: "",
+      })
+      .then((response) => {
+        console.log("update response: " + JSON.stringify(response));
+        return response.data;
+      });
+  },
+  changePassword: (id: number, newPassword: string) => {
+    /* TODO */
+    return new Promise((resolve, reject) => {
+      resolve("");
+    });
+  },
 };
 
 export const createUser = () => {
-  // TODO
-};
-
-export const updateUser = () => {
   // TODO
 };
 

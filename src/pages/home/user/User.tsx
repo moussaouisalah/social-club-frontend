@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ChangePassword from "../../../components/change-password/ChangePassword";
 import Content from "../../../components/content/Content";
+import EditUser from "../../../components/edit-user/EditUser";
 import UserClubCard from "../../../components/user-club-card/UserClubCard";
 import UserProfile from "../../../components/user-profile/UserProfile";
 import { clubProvider } from "../../../providers/data-providers/clubProvider";
@@ -13,19 +15,22 @@ import { UserTab, UserTabType } from "../../../types/UserTab";
 
 type UserProps = {
   currentUser?: UserType;
+  setCurrentUser: Dispatch<SetStateAction<UserType | undefined>>;
 };
 
 type UserParams = {
   id?: string;
 };
 
-const User = ({ currentUser }: UserProps) => {
+const User = ({ currentUser, setCurrentUser }: UserProps) => {
   const { id } = useParams<UserParams>();
   const [user, setUser] = useState<UserType | undefined>(undefined);
   const [members, setMembers] = useState<Member[]>([]);
   const [tabs, setTabs] = useState<UserTab[]>([]);
   const [selectedTab, setSelectedTab] =
     useState<UserTab | undefined>(undefined);
+  const [isEditDisabled, setEditDisabled] = useState(false);
+  const [isChangePasswordDisabled, setChangePasswordDisabled] = useState(false);
 
   // get user
   useEffect(() => {
@@ -80,9 +85,6 @@ const User = ({ currentUser }: UserProps) => {
         },
       ];
     }
-    console.trace(user.id);
-    console.trace(currentUser);
-    console.trace(!currentUser || user.id !== currentUser.id);
     console.log("setting tabs as: " + JSON.stringify(createdTabs));
     setTabs(createdTabs);
   }, [user, currentUser]);
@@ -98,6 +100,30 @@ const User = ({ currentUser }: UserProps) => {
     setTabs(
       tabs.map((tab) => ({ ...tab, isSelected: tab.type === newSelectedTag }))
     );
+  };
+
+  const handleEditUser = (
+    firstName: string,
+    lastName: string,
+    email: string
+  ) => {
+    if (!currentUser) return;
+    setEditDisabled(true);
+    userProvider
+      .updateUser(currentUser.id, firstName, lastName, email)
+      .then((data) => {
+        setCurrentUser({ ...currentUser, firstName, lastName, email });
+        console.log("data: " + JSON.stringify(data));
+        setEditDisabled(false);
+      });
+  };
+
+  const handleChangePassword = (newPassword: string) => {
+    if (!currentUser) return;
+    setChangePasswordDisabled(true);
+    userProvider.changePassword(currentUser.id, newPassword).then((data) => {
+      setChangePasswordDisabled(false);
+    });
   };
 
   return (
@@ -122,6 +148,20 @@ const User = ({ currentUser }: UserProps) => {
               color={member.club?.primaryColor}
             />
           ))
+        ) : selectedTab?.type === UserTabType.Gestion ? (
+          <>
+            <EditUser
+              firstName={user?.firstName || ""}
+              lastName={user?.lastName || ""}
+              email={user?.email || ""}
+              editHandler={handleEditUser}
+              isButtonDisabled={!user || isEditDisabled}
+            />
+            <ChangePassword
+              changeHandler={handleChangePassword}
+              isButtonDisabled={!user || isChangePasswordDisabled}
+            />
+          </>
         ) : (
           <></>
         )}

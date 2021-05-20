@@ -1,13 +1,12 @@
 {
   "users": [
     {
-      "id": 1,
-      "firstName": "Salahedine",
+      "firstName": "Salaheddine",
       "lastName": "Moussaoui",
       "email": "salah.moussaoui@outlook.com",
-      "password": "test",
       "profileImage": "",
-      "coverImage": ""
+      "coverImage": "",
+      "id": 1
     }
   ],
   "clubs": [
