@@ -29,10 +29,20 @@ export const clubProvider = {
       })
       .then((response) => response.data);
   },
-};
-
-export const updateClub = () => {
-  // TODO
+  updateClub: (id: number, name: string, primaryColor: string) => {
+    console.log("update: " + JSON.stringify({ name, primaryColor }));
+    return axios
+      .put(SERVER_URL + CLUBS_ENDPOINT + "/" + id, {
+        name,
+        primaryColor,
+        profileImage: "",
+        coverImage: "",
+      })
+      .then((response) => {
+        console.log("update response: " + JSON.stringify(response));
+        return response.data;
+      });
+  },
 };
 
 export const deleteClub = () => {

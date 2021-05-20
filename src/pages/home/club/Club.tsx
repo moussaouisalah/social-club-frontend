@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ClubMemberCard from "../../../components/club-member-card/ClubMemberCard";
 import ClubProfile from "../../../components/club-profile/ClubProfile";
 import Content from "../../../components/content/Content";
+import EditClub from "../../../components/edit-club/EditClub";
 import PostCard from "../../../components/post-card/PostCard";
 import { clubProvider } from "../../../providers/data-providers/clubProvider";
 import { memberProvider } from "../../../providers/data-providers/memberProvider";
@@ -33,6 +34,7 @@ const Club = ({ user }: ClubProps) => {
   const [tabs, setTabs] = useState<ClubTab[]>([]);
   const [selectedTab, setSelectedTab] =
     useState<ClubTab | undefined>(undefined);
+  const [isEditDisabled, setEditDisabled] = useState(false);
 
   // get Club
   useEffect(() => {
@@ -146,7 +148,15 @@ const Club = ({ user }: ClubProps) => {
     );
   };
 
-  console.log("render tabs:" + tabs);
+  const handleEditClub = (name: string, primaryColor: string) => {
+    if (!user || !club) return;
+    setEditDisabled(true);
+    clubProvider.updateClub(club.id, name, primaryColor).then((data) => {
+      setClub({ ...club, name: data.name, primaryColor: data.primaryColor });
+      setEditDisabled(false);
+    });
+  };
+
   return (
     <>
       <ClubProfile
@@ -188,7 +198,14 @@ const Club = ({ user }: ClubProps) => {
             />
           ))
         ) : selectedTab?.type === ClubTabType.Gestion ? (
-          <></>
+          <>
+            <EditClub
+              name={club?.name || ""}
+              primaryColor={club?.primaryColor || ""}
+              editHandler={handleEditClub}
+              isButtonDisabled={!user || !club || isEditDisabled}
+            />
+          </>
         ) : (
           <></>
         )}

@@ -11,11 +11,11 @@
   ],
   "clubs": [
     {
-      "id": 1,
       "name": "IEEE ENSA Fès",
+      "primaryColor": "#ff5722",
       "profileImage": "",
       "coverImage": "",
-      "primaryColor": "#FF5733"
+      "id": 1
     }
   ],
   "posts": [

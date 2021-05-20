@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add edit club
 - add edit member
 - add delete member
 - add join club
