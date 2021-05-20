@@ -18,7 +18,6 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #707070;
   width: 80%;
   max-width: 1200px;
 }
@@ -26,6 +25,7 @@
 .profile-data {
   display: flex;
   align-items: center;
+  border-bottom: 1px solid #707070;
 }
 
 .profile-image {
