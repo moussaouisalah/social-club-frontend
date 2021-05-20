@@ -3,6 +3,7 @@ import { users } from "../../temporaryData.json";
 import { SERVER_URL, USERS_ENDPOINT } from "../../config.json";
 import { User } from "../../types/User";
 import { resolve } from "url";
+import { Pagination } from "../../types/Pagination";
 
 export const userProvider = {
   getOne: (id: number): Promise<User> => {
@@ -23,7 +24,7 @@ export const userProvider = {
         });
     });
   },
-  getList: () => {
+  getList: (pagination: Pagination = { skip: 0, take: 10 }) => {
     return new Promise((resolve, reject) => {
       axios
         .get(SERVER_URL + USERS_ENDPOINT)
@@ -37,7 +38,7 @@ export const userProvider = {
         });
     });
   },
-  getMany: (ids: number[]) => {
+  getMany: (ids: number[], pagination: Pagination = { skip: 0, take: 10 }) => {
     return new Promise((resolve, reject) => {
       const usersList = users.filter((user) => ids.includes(user.id));
       resolve(usersList);

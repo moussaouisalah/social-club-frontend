@@ -1,9 +1,13 @@
 import axios from "axios";
 import { Post } from "../../types/Post";
 import { SERVER_URL, POSTS_ENDPOINT } from "../../config.json";
+import { Pagination } from "../../types/Pagination";
 
 export const postProvider = {
-  getManyByUser: (userId: number): Promise<Post[]> => {
+  getManyByUser: (
+    userId: number,
+    pagination: Pagination = { skip: 0, take: 10 }
+  ): Promise<Post[]> => {
     console.log("postProvider getManyByUser: Start (id: " + userId + ")");
     return new Promise((resolve, reject) => {
       axios
@@ -18,7 +22,10 @@ export const postProvider = {
         });
     });
   },
-  getManyByClub: (clubId: number): Promise<Post[]> => {
+  getManyByClub: (
+    clubId: number,
+    pagination: Pagination = { skip: 0, take: 10 }
+  ): Promise<Post[]> => {
     return new Promise((resolve, reject) => {
       axios
         .get(SERVER_URL + POSTS_ENDPOINT + "?clubId=" + clubId)

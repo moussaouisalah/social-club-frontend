@@ -2,8 +2,6 @@
 
 ## TODO
 
-- add pagination
-
 - add create club
 - add edit club
 - add edit member

@@ -1,5 +1,6 @@
 import { members } from "../../temporaryData.json";
 import { Member } from "../../types/Member";
+import { Pagination } from "../../types/Pagination";
 
 export const memberProvider = {
   getManyByUser: (userId: number): Promise<Member[]> => {
