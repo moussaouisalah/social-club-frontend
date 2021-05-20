@@ -26,7 +26,7 @@ const EditUser = ({
   return (
     <>
       <h1 className="sign-up-title">Modifier</h1>
-      <div className="sign-up-form">
+      <div className="sign-up-form" style={{ marginBottom: "100px" }}>
         <div className="first-last-container">
           <input
             type="text"
