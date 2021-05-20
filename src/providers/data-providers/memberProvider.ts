@@ -23,4 +23,9 @@ export const memberProvider = {
       resolve("membersList");
     });
   },
+  deleteMember: (userId: number, clubId: number) => {
+    return new Promise((resolve, reject) => {
+      resolve("membersList");
+    });
+  },
 };

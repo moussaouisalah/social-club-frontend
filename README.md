@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add delete member
 - add join club
 
 - add toggle like

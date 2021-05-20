@@ -57,6 +57,12 @@ const ClubMemberCard = ({
     });
   };
 
+  const deleteMember = () => {
+    memberProvider.deleteMember(userId, clubId).then((data) => {
+      // TODO update data
+    });
+  };
+
   const styles = makeStyles(color);
   if (isEdited)
     return (
@@ -98,7 +104,7 @@ const ClubMemberCard = ({
         )}
         {currentUserRole?.canRemove && (
           <div className="member-delete-button">
-            <Delete />
+            <Delete onClick={deleteMember} />
           </div>
         )}
       </div>
