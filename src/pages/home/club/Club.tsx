@@ -35,6 +35,7 @@ const Club = ({ user }: ClubProps) => {
   const [selectedTab, setSelectedTab] =
     useState<ClubTab | undefined>(undefined);
   const [isEditDisabled, setEditDisabled] = useState(false);
+  const [roles, setRoles] = useState<Role[]>([]);
 
   // get Club
   useEffect(() => {
@@ -67,6 +68,14 @@ const Club = ({ user }: ClubProps) => {
         if (userMemberArray.length > 0) setUserRole(userMemberArray[0].role);
       });
   }, [club, user]);
+
+  // get roles
+  useEffect(() => {
+    if (!club) return;
+    roleProvider
+      .getManyByClub(club.id)
+      .then((rolesList) => setRoles(rolesList));
+  }, [club]);
 
   // get posts
   useEffect(() => {
@@ -188,6 +197,7 @@ const Club = ({ user }: ClubProps) => {
           members.map((member, key) => (
             <ClubMemberCard
               userId={member.userId}
+              clubId={club?.id || 0}
               key={key}
               profileImage={member.user?.profileImage}
               firstName={member.user?.firstName || ""}
@@ -195,6 +205,7 @@ const Club = ({ user }: ClubProps) => {
               role={member.role}
               currentUserRole={userRole}
               color={club?.primaryColor || undefined}
+              clubRoles={roles}
             />
           ))
         ) : selectedTab?.type === ClubTabType.Gestion ? (

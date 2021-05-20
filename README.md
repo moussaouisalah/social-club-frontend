@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add edit member
 - add delete member
 - add join club
 
@@ -13,6 +12,7 @@
 
 - change all dataproviders
 - add error logger (method from app passed to children or context)
+- add photos
 - add invite to club
 - add accept / refuse member
 
