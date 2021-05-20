@@ -2,8 +2,6 @@
 
 ## TODO
 
-- add join club
-
 - add toggle like
 - add create post
 - add post page
