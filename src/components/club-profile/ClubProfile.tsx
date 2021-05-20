@@ -15,6 +15,7 @@ type ClubProfileProps = {
   role?: Role | undefined;
   membersCount: number;
   tabChangeHandler: (tabType: ClubTabType) => void;
+  joinHandler: () => void;
 };
 
 const makeStyles = (color: string) => ({
@@ -40,6 +41,7 @@ const ClubProfile = ({
   role = undefined,
   membersCount,
   tabChangeHandler,
+  joinHandler,
 }: ClubProfileProps) => {
   const styles = makeStyles(color);
   return (
@@ -57,7 +59,11 @@ const ClubProfile = ({
             </div>
           </div>
           {!role && (
-            <button className="join-button" style={styles.backgroundColor}>
+            <button
+              className="join-button"
+              style={styles.backgroundColor}
+              onClick={joinHandler}
+            >
               Rejoindre
             </button>
           )}

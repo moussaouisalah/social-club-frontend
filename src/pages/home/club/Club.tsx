@@ -166,6 +166,14 @@ const Club = ({ user }: ClubProps) => {
     });
   };
 
+  const handleJoinClub = () => {
+    if (!user || !club) return;
+
+    memberProvider.createMember(user.id, club.id).then((data) => {
+      // TODO: handle data
+    });
+  };
+
   return (
     <>
       <ClubProfile
@@ -175,6 +183,7 @@ const Club = ({ user }: ClubProps) => {
         role={userRole}
         tabChangeHandler={handleTabChange}
         color={club?.primaryColor || undefined}
+        joinHandler={handleJoinClub}
       />
       <Content>
         {selectedTab?.type === ClubTabType.Discussion ? (

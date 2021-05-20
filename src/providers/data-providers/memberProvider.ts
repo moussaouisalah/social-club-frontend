@@ -15,8 +15,10 @@ export const memberProvider = {
       resolve(membersList);
     });
   },
-  createMember: () => {
-    // TODO
+  createMember: (userId: number, clubId: number) => {
+    return new Promise((resolve, reject) => {
+      resolve("membersList");
+    });
   },
   updateMember: (userId: number, clubId: number, newRoleId: number) => {
     return new Promise((resolve, reject) => {
