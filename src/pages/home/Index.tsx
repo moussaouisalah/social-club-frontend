@@ -12,6 +12,7 @@ import { Club as ClubType } from "../../types/Club";
 import Club from "./club/Club";
 import User from "./user/User";
 import HomePage from "./homepage/HomePage";
+import CreateClub from "./create-club/CreateClub";
 
 const Index = () => {
   // TODO: add user to types
@@ -53,6 +54,10 @@ const Index = () => {
     history.push("/");
   };
 
+  const handleRedirectToCreateClub = () => {
+    history.push("/create-club");
+  };
+
   return (
     <div className="App">
       <Navbar user={user} />
@@ -62,7 +67,10 @@ const Index = () => {
             text="Fil d'actualité"
             onClick={handleRedirectToHomePage}
           />
-          <SidebarItem text="Créer un Club" />
+          <SidebarItem
+            text="Créer un Club"
+            onClick={handleRedirectToCreateClub}
+          />
           <SidebarTitle title="Mes Clubs" />
           {clubs.map((club, key) => (
             <SidebarItem
@@ -81,6 +89,9 @@ const Index = () => {
               </Route>
               <Route path="/user/:id">
                 <User currentUser={user} setCurrentUser={setUser} />
+              </Route>
+              <Route path="/create-club" exact>
+                <CreateClub currentUser={user} />
               </Route>
               <Route path="/">
                 <HomePage user={user} />

@@ -1,5 +1,7 @@
+import axios from "axios";
 import { clubs } from "../../temporaryData.json";
 import { Club } from "../../types/Club";
+import { SERVER_URL, CLUBS_ENDPOINT } from "../../config.json";
 
 export const clubProvider = {
   getOne: (id: number): Promise<Club> => {
@@ -15,10 +17,18 @@ export const clubProvider = {
       resolve(clubsList);
     });
   },
-};
-
-export const createClub = () => {
-  // TODO
+  createClub: (userId: number, clubName: string, primaryColor: string) => {
+    // TODO
+    return axios
+      .post(SERVER_URL + CLUBS_ENDPOINT, {
+        userId,
+        clubName,
+        primaryColor,
+        profileImage: "",
+        coverImage: "",
+      })
+      .then((response) => response.data);
+  },
 };
 
 export const updateClub = () => {
