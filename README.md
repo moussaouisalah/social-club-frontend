@@ -2,9 +2,9 @@
 
 ## TODO
 
-- add sign up
 - add edit user
 - add change password
+- add pagination
 
 - add create club
 - add edit club

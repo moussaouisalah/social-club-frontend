@@ -19,7 +19,11 @@ const SignUp = () => {
   }, []);
 
   // TODO: this and image upload
-  const handleSignUp = () => {};
+  const handleSignUp = () => {
+    authProvider
+      .signup(firstName, lastName, email, password)
+      .then(() => history.push("/"));
+  };
 
   const handleRedirectToLogin = () => {
     history.push("/login");

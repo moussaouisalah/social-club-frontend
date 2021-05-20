@@ -1,5 +1,7 @@
+import axios from "axios";
 import { auth, users } from "../temporaryData.json";
 import { User } from "../types/User";
+import { SERVER_URL, SIGN_UP_ENDPOINT } from "../config.json";
 
 const TOKEN_NAME = "auth_token";
 
@@ -25,6 +27,29 @@ export const authProvider = {
   login: (email: string, password: string) => {
     return new Promise((resolve, reject) => {
       // TODO: check stuff
+      localStorage.setItem(TOKEN_NAME, "oijrpekg");
+      resolve(undefined);
+    });
+  },
+  signup: (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+  ) => {
+    return new Promise((resolve, reject) => {
+      /*
+      axios
+        .post(SERVER_URL + SIGN_UP_ENDPOINT, {
+          firstName,
+          lastName,
+          email,
+          password,
+        })
+        .then((response) => {
+          console.log("sign up response: " + JSON.stringify(response));
+        });
+        */
       localStorage.setItem(TOKEN_NAME, "oijrpekg");
       resolve(undefined);
     });
