@@ -13,7 +13,7 @@
 - add invite to club
 - add accept / refuse member
 
-- add file instead of just photo
+- add file instead of just photo (also change name of attribute)
 - add phone sidebar
 
 # ENDPOINTS
@@ -29,9 +29,14 @@ ids?: int[] // get users by id
 
 GET /users/:id
 
-POST /users
+POST /users //signup
 BODY_PARAMS {
-
+firstName: string,
+lastName: string,
+email: string,
+password: string
+profileImage?: image,
+coverImage?: image
 }
 
 PUT /users/:id
@@ -58,9 +63,6 @@ email: string,
 password: string
 }
 
-POST /signup
-// TODO
-
 ## POSTS
 
 GET /posts
@@ -74,8 +76,13 @@ take?: int, // pagination number
 POST /posts
 BODY_PARAMS {
 clubId: int,
-// TODO
+text: string,
+file: file,
 }
+
+GET /posts/:id
+
+POST /posts/:id/like
 
 ## CLUBS
 
@@ -113,9 +120,29 @@ URL_PARAMS {
 clubId: int
 }
 
+POST /roles
+BODY_PARAMS {
+name: string,
+canInvite: boolean,
+canRemove: boolean,
+canPost: boolean,
+canEdit: boolean,
+}
+
 GET /roles/:id
 
-// TODO
+PUT /roles/:id
+BODY_PARAMS {
+name: string,
+canInvite: boolean,
+canRemove: boolean,
+canPost: boolean,
+canEdit: boolean,
+}
+
+DELETE /roles/:id
+
+## MEMBERS
 
 GET /members
 URL_PARAMS {
@@ -124,6 +151,21 @@ clubId?: int, // get club members
 }
 
 // TODO
+
+## COMMENTS
+
+// TODO
+
+## MISC
+
+/search
+URL_PARAMS {
+name: string
+}
+RETURNS {
+users: [],
+clubs: []
+}
 
 # DATA TYPES
 
