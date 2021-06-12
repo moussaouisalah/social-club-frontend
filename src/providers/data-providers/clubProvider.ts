@@ -17,12 +17,12 @@ export const clubProvider = {
       resolve(clubsList);
     });
   },
-  createClub: (userId: number, clubName: string, primaryColor: string) => {
+  createClub: (userId: number, name: string, primaryColor: string) => {
     // TODO
     return axios
       .post(SERVER_URL + CLUBS_ENDPOINT, {
         userId,
-        clubName,
+        name,
         primaryColor,
         profileImage: "",
         coverImage: "",
