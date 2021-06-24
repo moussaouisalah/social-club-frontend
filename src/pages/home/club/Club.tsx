@@ -5,7 +5,9 @@ import ClubProfile from "../../../components/club-profile/ClubProfile";
 import Content from "../../../components/content/Content";
 import CreatePostCard from "../../../components/create-post-card/CreatePostCard";
 import EditClub from "../../../components/edit-club/EditClub";
+import InviteMemberCard from "../../../components/invite-member-card/InviteMemberCard";
 import PostCard from "../../../components/post-card/PostCard";
+import PostModal from "../../../components/post-modal/PostModal";
 import { clubProvider } from "../../../providers/data-providers/clubProvider";
 import { memberProvider } from "../../../providers/data-providers/memberProvider";
 import { postProvider } from "../../../providers/data-providers/postProvider";
@@ -221,20 +223,25 @@ const Club = ({ user }: ClubProps) => {
             ))}
           </>
         ) : selectedTab?.type === ClubTabType.Membres ? (
-          members.map((member, key) => (
-            <ClubMemberCard
-              userId={member.userId}
-              clubId={club?.id || 0}
-              key={key}
-              profileImage={member.user?.profileImage}
-              firstName={member.user?.firstName || ""}
-              lastName={member.user?.lastName || ""}
-              role={member.role}
-              currentUserRole={userRole}
-              color={club?.primaryColor || undefined}
-              clubRoles={roles}
-            />
-          ))
+          <>
+            {user && club && userRole?.canInvite && (
+              <InviteMemberCard color={club.primaryColor} clubRoles={roles} />
+            )}
+            {members.map((member, key) => (
+              <ClubMemberCard
+                userId={member.userId}
+                clubId={club?.id || 0}
+                key={key}
+                profileImage={member.user?.profileImage}
+                firstName={member.user?.firstName || ""}
+                lastName={member.user?.lastName || ""}
+                role={member.role}
+                currentUserRole={userRole}
+                color={club?.primaryColor || undefined}
+                clubRoles={roles}
+              />
+            ))}
+          </>
         ) : selectedTab?.type === ClubTabType.Gestion ? (
           <>
             <EditClub

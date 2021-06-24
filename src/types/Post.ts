@@ -4,7 +4,7 @@ import { User } from "./User";
 export type Post = {
   id: number;
   text: string;
-  image: string;
+  image?: string;
   creationDateTime: Date;
   userId: number;
   clubId: number;

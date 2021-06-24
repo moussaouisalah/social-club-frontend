@@ -1,7 +1,13 @@
-import { ChatBubble, ChatOutlined, ThumbUpOutlined, ThumbUpSharp } from "@material-ui/icons";
-import React, { useEffect, useState } from "react";
+import {
+  ChatBubble,
+  ChatOutlined,
+  ThumbUpOutlined,
+  ThumbUpSharp,
+} from "@material-ui/icons";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import defaultProfile from "../../assets/default-profile.jpg";
+import { PostModalContext } from "../../contexts/PostModalContext";
 import { postProvider } from "../../providers/data-providers/postProvider";
 import { primaryColor } from "../../theme.json";
 import "./post-card.css";
@@ -53,46 +59,81 @@ const PostCard = ({
   const [isLikedByUser, setLikedByUser] = useState(false);
   const [postLikes, setPostLikes] = useState(likesCount);
 
+  const { post, setPost: setOpenedPost } = useContext(PostModalContext);
+
   const history = useHistory();
 
   // get is liked
   useEffect(() => {
-    if(!userId)
-      return;
+    if (!userId) return;
     postProvider.getIsLikedByUser(postId, userId).then((isLikedByUser) => {
       setLikedByUser(isLikedByUser);
-    })
-  }, [])
+    });
+  }, []);
 
-  const handleRedirectToClub = () => {
+  const handleRedirectToClub = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
     history.push("/club/" + clubId);
   };
 
-  const handleRedirectToUser = () => {
+  const handleRedirectToUser = (
+    event: React.MouseEvent<HTMLSpanElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
     history.push("/user/" + userId);
   };
 
-  const handleToggleLike = () => {
+  const handleToggleLike = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
     setPostLikes(isLikedByUser ? postLikes - 1 : postLikes + 1);
     setLikedByUser(!isLikedByUser);
     postProvider.togglePostLike(postId);
   };
 
+  const handleClick = () => {
+    if (!setOpenedPost) return;
+    console.log("hezzre");
+
+    setOpenedPost({
+      postId,
+      userId,
+      clubId,
+      firstName,
+      lastName,
+      dateTime,
+      profileImage,
+      clubName,
+      color,
+      text,
+      image,
+      likesCount,
+      commentsCount,
+    });
+  };
+
   const styles = makeStyles(color);
   return (
-    <div className="post" style={styles.border}>
+    <div className="post" style={styles.border} onClick={handleClick}>
       <div className="post-header">
         <img className="post-header-image" src={profileImage} alt="profile" />
         <div className="post-header-data">
           <div className="post-header-name" style={styles.mainColor}>
             <span
-              onClick={userId ? handleRedirectToUser : undefined}
+              onClick={
+                userId ? (event) => handleRedirectToUser(event) : undefined
+              }
               style={{ cursor: "pointer" }}
             >
               {firstName + " " + lastName}
             </span>{" "}
             <span
-              onClick={clubId ? handleRedirectToClub : undefined}
+              onClick={
+                clubId ? (event) => handleRedirectToClub(event) : undefined
+              }
               style={{ cursor: "pointer" }}
             >
               {clubName ? "> " + clubName : ""}
@@ -117,7 +158,7 @@ const PostCard = ({
       <div className="post-reactions">
         <div
           className="likes"
-          onClick={handleToggleLike}
+          onClick={(event) => handleToggleLike(event)}
           style={styles.clickable}
         >
           <div className="like-icon" style={styles.mainColor}>

@@ -13,11 +13,18 @@ import Club from "./club/Club";
 import User from "./user/User";
 import HomePage from "./homepage/HomePage";
 import CreateClub from "./create-club/CreateClub";
+import PostModal from "../../components/post-modal/PostModal";
+import { Post } from "../../types/Post";
+import { PostModalContext } from "../../contexts/PostModalContext";
+import { PostModalProps } from "../../types/PostModalProps";
 
 const Index = () => {
   // TODO: add user to types
   const [user, setUser] = useState<UserType | undefined>(undefined);
   const [clubs, setClubs] = useState<ClubType[]>([]);
+  const [openedPost, setOpenedPost] = useState<PostModalProps | undefined>(
+    undefined
+  );
 
   const history = useHistory();
 
@@ -59,48 +66,53 @@ const Index = () => {
   };
 
   return (
-    <div className="App">
-      <Navbar user={user} />
-      <section className="main-content">
-        <Sidebar>
-          <SidebarItem
-            text="Fil d'actualité"
-            onClick={handleRedirectToHomePage}
-          />
-          <SidebarItem
-            text="Créer un Club"
-            onClick={handleRedirectToCreateClub}
-          />
-          <SidebarTitle title="Mes Clubs" />
-          {clubs.map((club, key) => (
+    <PostModalContext.Provider
+      value={{ post: openedPost, setPost: setOpenedPost }}
+    >
+      <div className={openedPost ? "App noscroll" : "App"}>
+        {openedPost && <PostModal />}
+        <Navbar user={user} />
+        <section className="main-content">
+          <Sidebar>
             <SidebarItem
-              text={club.name}
-              color={club.primaryColor}
-              key={key}
-              onClick={() => handleRedirectToClub(club.id)}
+              text="Fil d'actualité"
+              onClick={handleRedirectToHomePage}
             />
-          ))}
-        </Sidebar>
-        <div className="content">
-          <Router history={history}>
-            <Switch>
-              <Route path="/club/:id">
-                <Club user={user} />
-              </Route>
-              <Route path="/user/:id">
-                <User currentUser={user} setCurrentUser={setUser} />
-              </Route>
-              <Route path="/create-club" exact>
-                <CreateClub currentUser={user} />
-              </Route>
-              <Route path="/">
-                <HomePage user={user} />
-              </Route>
-            </Switch>
-          </Router>
-        </div>
-      </section>
-    </div>
+            <SidebarItem
+              text="Créer un Club"
+              onClick={handleRedirectToCreateClub}
+            />
+            <SidebarTitle title="Mes Clubs" />
+            {clubs.map((club, key) => (
+              <SidebarItem
+                text={club.name}
+                color={club.primaryColor}
+                key={key}
+                onClick={() => handleRedirectToClub(club.id)}
+              />
+            ))}
+          </Sidebar>
+          <div className="content">
+            <Router history={history}>
+              <Switch>
+                <Route path="/club/:id">
+                  <Club user={user} />
+                </Route>
+                <Route path="/user/:id">
+                  <User currentUser={user} setCurrentUser={setUser} />
+                </Route>
+                <Route path="/create-club" exact>
+                  <CreateClub currentUser={user} />
+                </Route>
+                <Route path="/">
+                  <HomePage user={user} />
+                </Route>
+              </Switch>
+            </Router>
+          </div>
+        </section>
+      </div>
+    </PostModalContext.Provider>
   );
 };
 

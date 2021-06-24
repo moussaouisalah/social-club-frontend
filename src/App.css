@@ -20,6 +20,10 @@ body {
   grid-template-rows: 70px auto;
 }
 
+.noscroll {
+  overflow: hidden;
+}
+
 .main-content {
   width: 100%;
   display: grid;
