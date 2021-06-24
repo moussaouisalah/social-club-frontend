@@ -2,8 +2,7 @@
 
 ## TODO
 
-- add toggle like
-- add create post
+- add create post   
 - add post page
 - add create comment
 
@@ -12,6 +11,7 @@
 - add photos
 - add invite to club
 - add accept / refuse member
+- add events
 
 - add file instead of just photo (also change name of attribute)
 - add phone sidebar

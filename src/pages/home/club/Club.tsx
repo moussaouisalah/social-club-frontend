@@ -190,6 +190,7 @@ const Club = ({ user }: ClubProps) => {
           posts.map((post, key) => (
             <PostCard
               key={key}
+              postId={post.id}
               userId={post.userId}
               firstName={(post.user?.firstName || "") as string}
               lastName={(post.user?.lastName || "") as string}

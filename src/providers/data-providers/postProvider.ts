@@ -34,4 +34,27 @@ export const postProvider = {
         });
     });
   },
+
+  getIsLikedByUser: (
+    postId: number,
+    userId: number
+  ): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(SERVER_URL + POSTS_ENDPOINT + "/" + postId + "?isLikedBy=" + userId)
+        .then((response) => {
+          resolve(response.data.isLikedByUser ?? false);
+        });
+    })
+  },
+
+  togglePostLike: (postId: number): Promise<boolean> => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(SERVER_URL + POSTS_ENDPOINT + "/" + postId)
+        .then((response) => {
+          resolve(response.data.isLikedByUser ?? false);
+        });
+    })
+  }
 };

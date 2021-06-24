@@ -38,6 +38,7 @@ const HomePage = ({ user }: HomePageProps) => {
       {posts.map((post, key) => (
         <PostCard
           key={key}
+          postId={post.id}
           clubId={post.clubId}
           userId={post.userId}
           firstName={post.user?.firstName || ""}

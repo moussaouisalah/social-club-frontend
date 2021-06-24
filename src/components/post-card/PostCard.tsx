@@ -1,5 +1,5 @@
-import { ChatBubble, ThumbUpSharp } from "@material-ui/icons";
-import React, { useState } from "react";
+import { ChatBubble, ChatOutlined, ThumbUpOutlined, ThumbUpSharp } from "@material-ui/icons";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { postProvider } from "../../providers/data-providers/postProvider";
@@ -7,6 +7,7 @@ import { primaryColor } from "../../theme.json";
 import "./post-card.css";
 
 type PostCardProps = {
+  postId: number;
   userId?: number;
   clubId?: number;
   firstName: string;
@@ -34,6 +35,7 @@ const makeStyles = (color: string) => ({
 });
 
 const PostCard = ({
+  postId,
   userId,
   clubId,
   firstName,
@@ -48,8 +50,19 @@ const PostCard = ({
   commentsCount,
 }: PostCardProps) => {
   const [isTextFullLength, setTextFullLength] = useState(text.length < 200);
+  const [isLikedByUser, setLikedByUser] = useState(false);
+  const [postLikes, setPostLikes] = useState(likesCount);
 
   const history = useHistory();
+
+  // get is liked
+  useEffect(() => {
+    if(!userId)
+      return;
+    postProvider.getIsLikedByUser(postId, userId).then((isLikedByUser) => {
+      setLikedByUser(isLikedByUser);
+    })
+  }, [])
 
   const handleRedirectToClub = () => {
     history.push("/club/" + clubId);
@@ -60,8 +73,9 @@ const PostCard = ({
   };
 
   const handleToggleLike = () => {
-    // TODO
-    //postProvider.togglePostLike()
+    setPostLikes(isLikedByUser ? postLikes - 1 : postLikes + 1);
+    setLikedByUser(!isLikedByUser);
+    postProvider.togglePostLike(postId);
   };
 
   const styles = makeStyles(color);
@@ -107,15 +121,15 @@ const PostCard = ({
           style={styles.clickable}
         >
           <div className="like-icon" style={styles.mainColor}>
-            <ThumbUpSharp />
+            {isLikedByUser ? <ThumbUpSharp /> : <ThumbUpOutlined />}
           </div>
           <div className="like-count" style={styles.mainColor}>
-            {likesCount}
+            {postLikes}
           </div>
         </div>
         <div className="comments">
           <div className="comment-icon" style={styles.mainColor}>
-            <ChatBubble />
+            <ChatOutlined />
           </div>
           <div className="comment-count" style={styles.mainColor}>
             {commentsCount}
