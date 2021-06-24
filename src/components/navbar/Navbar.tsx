@@ -6,6 +6,10 @@ import { User } from "../../types/User";
 import { ClickAwayListener } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { authProvider } from "../../providers/authProvider";
+import defaultUserProfile from "../../assets/default-profile.jpg";
+import defaultClubProfile from "../../assets/default-club.png";
+import { SearchResult, SearchResultTypes } from "../../types/SearchResult";
+import { miscProvider } from "../../providers/data-providers/miscProvider";
 
 type NavbarProps = {
   user: User | undefined;
@@ -13,8 +17,35 @@ type NavbarProps = {
 
 const Navbar = ({ user }: NavbarProps) => {
   const [isDropDownEnabled, setDropDownEnabled] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   const history = useHistory();
+
+  // TODO: useCallback
+  const handleSearch = () => {
+    miscProvider
+      .search(searchInput)
+      .then((searchResults) => setSearchResults(searchResults));
+  };
+
+  const handleSearchInputChange = (newValue: string) => {
+    setSearchInput(newValue);
+    if (newValue === "") setSearchResults([]);
+    else {
+      handleSearch();
+    }
+  };
+
+  const handleSearchRedirect = (
+    itemId: number,
+    itemType: SearchResultTypes
+  ) => {
+    setSearchInput("");
+    setSearchResults([]);
+    if (itemType === SearchResultTypes.User) history.push("/user/" + itemId);
+    else history.push("/club/" + itemId);
+  };
 
   const handleRedirectToProfile = () => {
     setDropDownEnabled(false);
@@ -31,7 +62,38 @@ const Navbar = ({ user }: NavbarProps) => {
     <nav className="navbar">
       <div className="logo"></div>
       <div>
-        <input type="text" placeholder="Rechercher" className="text-input" />
+        <input
+          type="text"
+          placeholder="Rechercher"
+          className="text-input"
+          value={searchInput}
+          onChange={(event) => handleSearchInputChange(event.target.value)}
+        />
+        {searchResults.length > 0 && (
+          <div className="navbar-search-results">
+            {searchResults.map((searchResult, key) => (
+              <div
+                className="navbar-search-item"
+                key={key}
+                onClick={() =>
+                  handleSearchRedirect(searchResult.id, searchResult.type)
+                }
+              >
+                <img
+                  className="nav-search-image"
+                  src={
+                    searchResult?.profileImage ||
+                    searchResult.type === SearchResultTypes.User
+                      ? defaultUserProfile
+                      : defaultClubProfile
+                  }
+                  alt="profile"
+                />
+                <div className="nav-search-name">{searchResult.name}</div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
       <div>
         <div className="nav-user">
