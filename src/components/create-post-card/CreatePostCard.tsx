@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./create-post-card.css";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { primaryColor } from "../../theme.json";
+import { postProvider } from "../../providers/data-providers/postProvider";
+import { Post } from "../../types/Post";
 
 type CreatePostCardProps = {
   profileImage?: string;
   color?: string;
+  userId: number;
+  clubId: number;
+  addPostToList: (newPost: Post) => void;
 };
 
 const makeStyles = (color: string) => ({
@@ -20,7 +25,23 @@ const makeStyles = (color: string) => ({
 const CreatePostCard = ({
   profileImage = defaultProfile,
   color = primaryColor,
+  userId,
+  clubId,
+  addPostToList,
 }: CreatePostCardProps) => {
+  const [postText, setPostText] = useState("");
+  const [isButtonDisabled, setButtonDisabled] = useState(false);
+
+  const handleCreatePost = () => {
+    if (!postText) return;
+    setButtonDisabled(true);
+    postProvider.create(clubId, postText).then((newPost) => {
+      setButtonDisabled(false);
+      setPostText("");
+      addPostToList(newPost);
+    });
+  };
+
   const styles = makeStyles(color);
   return (
     <div className="create-post-card" style={styles.border}>
@@ -30,10 +51,19 @@ const CreatePostCard = ({
         alt="profile"
       />
       <div className="create-post-content">
-        <textarea className="create-post-textarea"></textarea>
+        <textarea
+          className="create-post-textarea"
+          value={postText}
+          onChange={(event) => setPostText(event.target.value)}
+        ></textarea>
         <div className="create-post-bottom">
           <button className="create-post-image">Image</button>
-          <button className="create-post-button" style={styles.backgroundColor}>
+          <button
+            className="create-post-button"
+            style={styles.backgroundColor}
+            onClick={handleCreatePost}
+            disabled={isButtonDisabled || !postText}
+          >
             Envoyer
           </button>
         </div>

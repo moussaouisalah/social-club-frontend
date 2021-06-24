@@ -35,17 +35,16 @@ export const postProvider = {
     });
   },
 
-  getIsLikedByUser: (
-    postId: number,
-    userId: number
-  ): Promise<boolean> => {
+  getIsLikedByUser: (postId: number, userId: number): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       axios
-        .get(SERVER_URL + POSTS_ENDPOINT + "/" + postId + "?isLikedBy=" + userId)
+        .get(
+          SERVER_URL + POSTS_ENDPOINT + "/" + postId + "?isLikedBy=" + userId
+        )
         .then((response) => {
           resolve(response.data.isLikedByUser ?? false);
         });
-    })
+    });
   },
 
   togglePostLike: (postId: number): Promise<boolean> => {
@@ -55,6 +54,22 @@ export const postProvider = {
         .then((response) => {
           resolve(response.data.isLikedByUser ?? false);
         });
-    })
-  }
+    });
+  },
+
+  create: (clubId: number, text: string): Promise<Post> => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(SERVER_URL + POSTS_ENDPOINT, {
+          text,
+          image: "",
+          clubId,
+          userId: 1, // TODO: remove this and get it from token on the server side
+          creationDateTime: "", // TODO: remove this
+        })
+        .then((response) => {
+          console.log("create post response: " + JSON.stringify(response));
+        });
+    });
+  },
 };

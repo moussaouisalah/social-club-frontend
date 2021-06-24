@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ClubMemberCard from "../../../components/club-member-card/ClubMemberCard";
 import ClubProfile from "../../../components/club-profile/ClubProfile";
 import Content from "../../../components/content/Content";
+import CreatePostCard from "../../../components/create-post-card/CreatePostCard";
 import EditClub from "../../../components/edit-club/EditClub";
 import PostCard from "../../../components/post-card/PostCard";
 import { clubProvider } from "../../../providers/data-providers/clubProvider";
@@ -32,8 +33,9 @@ const Club = ({ user }: ClubProps) => {
   const [userRole, setUserRole] = useState<Role | undefined>(undefined);
   const [posts, setPosts] = useState<Post[]>([]);
   const [tabs, setTabs] = useState<ClubTab[]>([]);
-  const [selectedTab, setSelectedTab] =
-    useState<ClubTab | undefined>(undefined);
+  const [selectedTab, setSelectedTab] = useState<ClubTab | undefined>(
+    undefined
+  );
   const [isEditDisabled, setEditDisabled] = useState(false);
   const [roles, setRoles] = useState<Role[]>([]);
 
@@ -166,6 +168,10 @@ const Club = ({ user }: ClubProps) => {
     });
   };
 
+  const handleAddPostToList = (newPost: Post) => {
+    setPosts([newPost, ...posts]);
+  };
+
   const handleJoinClub = () => {
     if (!user || !club) return;
 
@@ -187,22 +193,33 @@ const Club = ({ user }: ClubProps) => {
       />
       <Content>
         {selectedTab?.type === ClubTabType.Discussion ? (
-          posts.map((post, key) => (
-            <PostCard
-              key={key}
-              postId={post.id}
-              userId={post.userId}
-              firstName={(post.user?.firstName || "") as string}
-              lastName={(post.user?.lastName || "") as string}
-              dateTime={post.creationDateTime}
-              profileImage={club?.profileImage || undefined}
-              color={club?.primaryColor || undefined}
-              text={post.text}
-              image={post.image}
-              likesCount={post.likesCount || 0}
-              commentsCount={post.commentsCount || 0}
-            />
-          ))
+          <>
+            {user && club && userRole?.canPost && (
+              <CreatePostCard
+                userId={user.id}
+                clubId={club.id}
+                profileImage={user.profileImage || undefined}
+                color={club.primaryColor}
+                addPostToList={handleAddPostToList}
+              />
+            )}
+            {posts.map((post, key) => (
+              <PostCard
+                key={key}
+                postId={post.id}
+                userId={post.userId}
+                firstName={(post.user?.firstName || "") as string}
+                lastName={(post.user?.lastName || "") as string}
+                dateTime={post.creationDateTime}
+                profileImage={post.user?.profileImage || undefined}
+                color={club?.primaryColor || undefined}
+                text={post.text}
+                image={post.image}
+                likesCount={post.likesCount || 0}
+                commentsCount={post.commentsCount || 0}
+              />
+            ))}
+          </>
         ) : selectedTab?.type === ClubTabType.Membres ? (
           members.map((member, key) => (
             <ClubMemberCard

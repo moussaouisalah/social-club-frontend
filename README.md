@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add create post   
 - add post page
 - add create comment
 
