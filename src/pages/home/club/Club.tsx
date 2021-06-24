@@ -209,6 +209,7 @@ const Club = ({ user }: ClubProps) => {
               <PostCard
                 key={key}
                 postId={post.id}
+                clubId={id ? parseInt(id) : 1}
                 userId={post.userId}
                 firstName={(post.user?.firstName || "") as string}
                 lastName={(post.user?.lastName || "") as string}

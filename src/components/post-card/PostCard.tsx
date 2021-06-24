@@ -14,8 +14,8 @@ import "./post-card.css";
 
 type PostCardProps = {
   postId: number;
-  userId?: number;
-  clubId?: number;
+  userId: number;
+  clubId: number;
   firstName: string;
   lastName: string;
   dateTime: Date;

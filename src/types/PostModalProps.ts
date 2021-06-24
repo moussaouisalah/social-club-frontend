@@ -1,7 +1,7 @@
 export type PostModalProps = {
   postId: number;
-  userId?: number;
-  clubId?: number;
+  userId: number;
+  clubId: number;
   firstName: string;
   lastName: string;
   dateTime: Date;
