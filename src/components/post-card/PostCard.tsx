@@ -96,7 +96,6 @@ const PostCard = ({
 
   const handleClick = () => {
     if (!setOpenedPost) return;
-    console.log("hezzre");
 
     setOpenedPost({
       postId,
