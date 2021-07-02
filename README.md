@@ -3,7 +3,6 @@
 ## TODO
 
 - add accept / refuse member
-- add invite to club
 
 - add photos
 - add file instead of just photo (also change name of attribute)

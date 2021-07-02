@@ -8,6 +8,7 @@
   max-width: 800px;
   margin-bottom: 20px;
   background-color: white;
+  position: relative;
 }
 
 .invite-user-input {
@@ -37,4 +38,15 @@
   border: none;
   color: white;
   cursor: pointer;
+}
+
+.invite-member-search-results {
+  bottom: 0;
+  transform: translateY(100%);
+  z-index: 100;
+  position: absolute;
+  background-color: white;
+  min-width: 300px;
+  -webkit-box-shadow: 5px 13px 23px 5px #cccccc;
+  box-shadow: 5px 13px 23px 5px #cccccc;
 }

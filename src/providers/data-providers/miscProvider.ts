@@ -17,4 +17,15 @@ export const miscProvider = {
       ]);
     });
   },
+  searchUsers: (searchQuery: string): Promise<SearchResult[]> => {
+    return new Promise<SearchResult[]>((resolve, reject) => {
+      resolve([
+        {
+          id: 1,
+          type: SearchResultTypes.User,
+          name: "salah moussaoui",
+        },
+      ]);
+    });
+  },
 };

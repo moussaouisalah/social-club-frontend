@@ -176,6 +176,10 @@ const Club = ({ user }: ClubProps) => {
     setPosts([newPost, ...posts]);
   };
 
+  const handleAddMemberToList = (newMember: Member) => {
+    setMembers([newMember, ...members]);
+  };
+
   const handleChangeUserMemberType = (newType: MemberType) => {
     if (!user || !club) return;
 
@@ -237,7 +241,13 @@ const Club = ({ user }: ClubProps) => {
               userMember &&
               userMember.type === MemberType.member &&
               userRole?.canInvite && (
-                <InviteMemberCard color={club.primaryColor} clubRoles={roles} />
+                <InviteMemberCard
+                  color={club.primaryColor}
+                  clubRoles={roles}
+                  members={members}
+                  clubId={club.id}
+                  addMemberToList={handleAddMemberToList}
+                />
               )}
             {members.map((member, key) => (
               <ClubMemberCard

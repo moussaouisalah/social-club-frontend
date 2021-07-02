@@ -50,9 +50,9 @@
   ],
   "members": [
     {
-      "userId": 4,
+      "userId": 1,
       "clubId": 1,
-      "type": "invited",
+      "type": "member",
       "roleId": 1
     }
   ],
