@@ -16,6 +16,7 @@ type ClubMemberCardProps = {
   firstName: string;
   lastName: string;
   role?: Role;
+  member?: Member;
   currentUserRole?: Role;
   currentUserMember?: Member;
   color?: string;
@@ -41,6 +42,7 @@ const ClubMemberCard = ({
   firstName,
   lastName,
   role,
+  member,
   currentUserRole,
   currentUserMember,
   color = primaryColor,
@@ -96,7 +98,10 @@ const ClubMemberCard = ({
           >
             {firstName} {lastName}
           </div>
-          <div className="member-role">{role?.name}</div>
+          <div className="member-role">
+            {role?.name}{" "}
+            {member?.type === MemberType.invited && " (en attente)"}
+          </div>
         </div>
       </div>
       <div className="member-buttons">

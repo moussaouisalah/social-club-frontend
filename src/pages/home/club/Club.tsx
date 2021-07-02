@@ -248,6 +248,7 @@ const Club = ({ user }: ClubProps) => {
                 firstName={member.user?.firstName || ""}
                 lastName={member.user?.lastName || ""}
                 role={member.role}
+                member={member}
                 currentUserRole={userRole}
                 currentUserMember={userMember}
                 color={club?.primaryColor || undefined}
