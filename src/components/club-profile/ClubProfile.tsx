@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./club-profile.css";
 import { primaryColor } from "../../theme.json";
 import defaultCover from "../../assets/default-cover.jpg";
 import defaultClub from "../../assets/default-club.png";
 import { Role } from "../../types/Role";
 import { ClubTab, ClubTabType } from "../../types/ClubTab";
+import { Member, MemberType } from "../../types/Member";
 
 type ClubProfileProps = {
   coverImage?: string;
@@ -12,10 +13,11 @@ type ClubProfileProps = {
   name: string;
   tabs: ClubTab[];
   color?: string;
-  role?: Role | undefined;
+  role?: Role;
+  member?: Member;
   membersCount: number;
   tabChangeHandler: (tabType: ClubTabType) => void;
-  joinHandler: () => void;
+  changeUserMemberType: (newType: MemberType) => void;
 };
 
 const makeStyles = (color: string) => ({
@@ -38,10 +40,11 @@ const ClubProfile = ({
   name,
   tabs,
   color = primaryColor,
-  role = undefined,
+  role,
+  member,
   membersCount,
   tabChangeHandler,
-  joinHandler,
+  changeUserMemberType,
 }: ClubProfileProps) => {
   const styles = makeStyles(color);
   return (
@@ -58,14 +61,31 @@ const ClubProfile = ({
               <div className="club-members-count">{membersCount} membres</div>
             </div>
           </div>
-          {!role && (
+          {!role || !member ? (
             <button
               className="join-button"
               style={styles.backgroundColor}
-              onClick={joinHandler}
+              onClick={() => changeUserMemberType(MemberType.requested)}
             >
               Rejoindre
             </button>
+          ) : member.type === MemberType.invited ? (
+            <div>
+              <button
+                className="accept-button"
+                onClick={() => changeUserMemberType(MemberType.member)}
+              >
+                Accepter
+              </button>
+              <button
+                className="refuse-button"
+                onClick={() => changeUserMemberType(MemberType.refused)}
+              >
+                Refuser
+              </button>
+            </div>
+          ) : (
+            member.type === MemberType.requested && <div>En Attente</div>
           )}
         </div>
         <div className="tabs">

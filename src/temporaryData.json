@@ -12,7 +12,7 @@
   "clubs": [
     {
       "name": "IEEE ENSA Fès",
-      "primaryColor": "#2196f3",
+      "primaryColor": "#03a9f4",
       "profileImage": "",
       "coverImage": "",
       "id": 1
@@ -50,9 +50,9 @@
   ],
   "members": [
     {
-      "userId": 1,
+      "userId": 4,
       "clubId": 1,
-      "type": "member",
+      "type": "invited",
       "roleId": 1
     }
   ],

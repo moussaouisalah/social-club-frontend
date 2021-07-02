@@ -15,7 +15,7 @@ import { roleProvider } from "../../../providers/data-providers/roleProvider";
 import { userProvider } from "../../../providers/data-providers/userProvider";
 import { Club as ClubType } from "../../../types/Club";
 import { ClubTab, ClubTabType } from "../../../types/ClubTab";
-import { Member } from "../../../types/Member";
+import { Member, MemberType } from "../../../types/Member";
 import { Post } from "../../../types/Post";
 import { Role } from "../../../types/Role";
 import { User } from "../../../types/User";
@@ -33,6 +33,7 @@ const Club = ({ user }: ClubProps) => {
   const [club, setClub] = useState<ClubType | undefined>(undefined);
   const [members, setMembers] = useState<Member[]>([]);
   const [userRole, setUserRole] = useState<Role | undefined>(undefined);
+  const [userMember, setUserMember] = useState<Member | undefined>(undefined);
   const [posts, setPosts] = useState<Post[]>([]);
   const [tabs, setTabs] = useState<ClubTab[]>([]);
   const [selectedTab, setSelectedTab] = useState<ClubTab | undefined>(
@@ -69,7 +70,10 @@ const Club = ({ user }: ClubProps) => {
         const userMemberArray = members.filter(
           (member) => member.userId === user.id
         );
-        if (userMemberArray.length > 0) setUserRole(userMemberArray[0].role);
+        if (userMemberArray.length > 0) {
+          setUserMember(userMemberArray[0]);
+          setUserRole(userMemberArray[0].role);
+        }
       });
   }, [club, user]);
 
@@ -100,11 +104,9 @@ const Club = ({ user }: ClubProps) => {
 
   // create tabs
   useEffect(() => {
-    console.log("here");
     if (!club) return;
     let createdTabs: ClubTab[];
-    console.log("here");
-    if (!userRole) {
+    if (!userRole || !userMember || userMember.type !== MemberType.member) {
       createdTabs = [
         {
           name: "Membres",
@@ -146,7 +148,7 @@ const Club = ({ user }: ClubProps) => {
     }
     console.log("setting tabs as: " + JSON.stringify(createdTabs));
     setTabs(createdTabs);
-  }, [userRole]);
+  }, [userRole, userMember, club]);
 
   // set selected tab on tabs change
   useEffect(() => {
@@ -174,11 +176,15 @@ const Club = ({ user }: ClubProps) => {
     setPosts([newPost, ...posts]);
   };
 
-  const handleJoinClub = () => {
+  const handleChangeUserMemberType = (newType: MemberType) => {
     if (!user || !club) return;
 
-    memberProvider.createMember(user.id, club.id).then((data) => {
+    memberProvider.changeMember(user.id, club.id, newType).then((member) => {
       // TODO: handle data
+      setUserMember(member);
+      roleProvider.getOne(member.roleId).then((role) => {
+        setUserRole(role);
+      });
     });
   };
 
@@ -189,9 +195,10 @@ const Club = ({ user }: ClubProps) => {
         tabs={tabs}
         membersCount={members.length}
         role={userRole}
+        member={userMember}
         tabChangeHandler={handleTabChange}
         color={club?.primaryColor || undefined}
-        joinHandler={handleJoinClub}
+        changeUserMemberType={handleChangeUserMemberType}
       />
       <Content>
         {selectedTab?.type === ClubTabType.Discussion ? (
@@ -225,9 +232,13 @@ const Club = ({ user }: ClubProps) => {
           </>
         ) : selectedTab?.type === ClubTabType.Membres ? (
           <>
-            {user && club && userRole?.canInvite && (
-              <InviteMemberCard color={club.primaryColor} clubRoles={roles} />
-            )}
+            {user &&
+              club &&
+              userMember &&
+              userMember.type === MemberType.member &&
+              userRole?.canInvite && (
+                <InviteMemberCard color={club.primaryColor} clubRoles={roles} />
+              )}
             {members.map((member, key) => (
               <ClubMemberCard
                 userId={member.userId}
@@ -238,6 +249,7 @@ const Club = ({ user }: ClubProps) => {
                 lastName={member.user?.lastName || ""}
                 role={member.role}
                 currentUserRole={userRole}
+                currentUserMember={userMember}
                 color={club?.primaryColor || undefined}
                 clubRoles={roles}
               />

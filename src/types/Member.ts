@@ -2,6 +2,13 @@ import { Club } from "./Club";
 import { Role } from "./Role";
 import { User } from "./User";
 
+export enum MemberType {
+  member = "member",
+  requested = "requested",
+  invited = "invited",
+  refused = "refused",
+}
+
 export type Member = {
   userId: number;
   clubId: number;

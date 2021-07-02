@@ -55,6 +55,28 @@
   cursor: pointer;
 }
 
+.accept-button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: green;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.refuse-button {
+  border: none;
+  width: 100px;
+  height: 40px;
+  color: white;
+  background-color: red;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .tabs {
   display: flex;
   align-items: center;

@@ -7,6 +7,7 @@ import { primaryColor } from "../../theme.json";
 import { useHistory } from "react-router-dom";
 import EditMemberCard from "../edit-member-card/EditMemberCard";
 import { memberProvider } from "../../providers/data-providers/memberProvider";
+import { Member, MemberType } from "../../types/Member";
 
 type ClubMemberCardProps = {
   userId: number;
@@ -16,6 +17,7 @@ type ClubMemberCardProps = {
   lastName: string;
   role?: Role;
   currentUserRole?: Role;
+  currentUserMember?: Member;
   color?: string;
   clubRoles: Role[];
 };
@@ -40,6 +42,7 @@ const ClubMemberCard = ({
   lastName,
   role,
   currentUserRole,
+  currentUserMember,
   color = primaryColor,
   clubRoles,
 }: ClubMemberCardProps) => {
@@ -97,16 +100,20 @@ const ClubMemberCard = ({
         </div>
       </div>
       <div className="member-buttons">
-        {currentUserRole?.canEdit && (
-          <div className="member-edit-button" onClick={() => setEdited(true)}>
-            <Create />
-          </div>
-        )}
-        {currentUserRole?.canRemove && (
-          <div className="member-delete-button">
-            <Delete onClick={deleteMember} />
-          </div>
-        )}
+        {currentUserMember &&
+          currentUserMember.type === MemberType.member &&
+          currentUserRole?.canEdit && (
+            <div className="member-edit-button" onClick={() => setEdited(true)}>
+              <Create />
+            </div>
+          )}
+        {currentUserMember &&
+          currentUserMember.type === MemberType.member &&
+          currentUserRole?.canRemove && (
+            <div className="member-delete-button">
+              <Delete onClick={deleteMember} />
+            </div>
+          )}
       </div>
     </div>
   );

@@ -2,15 +2,16 @@
 
 ## TODO
 
-- add invite to club
 - add accept / refuse member
+- add invite to club
+
 - add photos
-- add events
+- add file instead of just photo (also change name of attribute)
 
 - change all dataproviders
-- add error logger (method from app passed to children or context)
+- add events
 
-- add file instead of just photo (also change name of attribute)
+- add error logger (method from app passed to children or context)
 - add phone sidebar
 
 # ENDPOINTS

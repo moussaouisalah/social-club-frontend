@@ -1,5 +1,5 @@
 import { members } from "../../temporaryData.json";
-import { Member } from "../../types/Member";
+import { Member, MemberType } from "../../types/Member";
 import { Pagination } from "../../types/Pagination";
 
 export const memberProvider = {
@@ -15,9 +15,26 @@ export const memberProvider = {
       resolve(membersList);
     });
   },
-  createMember: (userId: number, clubId: number) => {
+  changeMember: (
+    userId: number,
+    clubId: number,
+    newType: MemberType
+  ): Promise<Member> => {
     return new Promise((resolve, reject) => {
-      resolve("membersList");
+      // TODO
+      const memberArray = members.filter(
+        (member) => clubId === member.clubId && userId === member.userId
+      );
+      if (memberArray.length === 0) {
+        resolve({
+          clubId,
+          userId,
+          type: newType,
+          roleId: 1,
+        });
+      } else {
+        resolve({ ...memberArray[0], type: newType });
+      }
     });
   },
   updateMember: (userId: number, clubId: number, newRoleId: number) => {
