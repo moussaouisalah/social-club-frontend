@@ -192,6 +192,18 @@ const Club = ({ user }: ClubProps) => {
     });
   };
 
+  const handleEditMemberInList = (userId: number, newMemberData: Member) => {
+    setMembers(
+      members.map((member) =>
+        member.userId === userId ? newMemberData : member
+      )
+    );
+  };
+
+  const handleDeleteMemberFromList = (userId: number) => {
+    setMembers(members.filter((member) => member.userId !== userId));
+  };
+
   return (
     <>
       <ClubProfile
@@ -263,6 +275,8 @@ const Club = ({ user }: ClubProps) => {
                 currentUserMember={userMember}
                 color={club?.primaryColor || undefined}
                 clubRoles={roles}
+                editMemberInList={handleEditMemberInList}
+                deleteMemberFromList={handleDeleteMemberFromList}
               />
             ))}
           </>

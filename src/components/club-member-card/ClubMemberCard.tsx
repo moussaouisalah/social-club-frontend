@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Role } from "../../types/Role";
 import defaultProfile from "../../assets/default-profile.jpg";
 import "./club-member-card.css";
-import { Create, Delete } from "@material-ui/icons";
+import { Check, Close, Create, Delete } from "@material-ui/icons";
 import { primaryColor } from "../../theme.json";
 import { useHistory } from "react-router-dom";
 import EditMemberCard from "../edit-member-card/EditMemberCard";
@@ -21,6 +21,8 @@ type ClubMemberCardProps = {
   currentUserMember?: Member;
   color?: string;
   clubRoles: Role[];
+  editMemberInList: (userId: number, newMemberData: Member) => void;
+  deleteMemberFromList: (userId: number) => void;
 };
 
 const makeStyles = (color: string) => ({
@@ -47,6 +49,8 @@ const ClubMemberCard = ({
   currentUserMember,
   color = primaryColor,
   clubRoles,
+  editMemberInList,
+  deleteMemberFromList,
 }: ClubMemberCardProps) => {
   const [isEdited, setEdited] = useState(false);
   const history = useHistory();
@@ -65,6 +69,20 @@ const ClubMemberCard = ({
   const deleteMember = () => {
     memberProvider.deleteMember(userId, clubId).then((data) => {
       // TODO update data
+    });
+  };
+
+  const handleAcceptMember = () => {
+    memberProvider
+      .changeMember(userId, clubId, MemberType.member)
+      .then((newMemberData) => {
+        editMemberInList(userId, newMemberData);
+      });
+  };
+
+  const handleRefuseMember = () => {
+    memberProvider.changeMember(userId, clubId, MemberType.refused).then(() => {
+      deleteMemberFromList(userId);
     });
   };
 
@@ -100,25 +118,50 @@ const ClubMemberCard = ({
           </div>
           <div className="member-role">
             {role?.name}{" "}
-            {member?.type === MemberType.invited && " (en attente)"}
+            {(member?.type === MemberType.invited ||
+              member?.type === MemberType.requested) &&
+              " (en attente)"}
           </div>
         </div>
       </div>
       <div className="member-buttons">
         {currentUserMember &&
-          currentUserMember.type === MemberType.member &&
-          currentUserRole?.canEdit && (
-            <div className="member-edit-button" onClick={() => setEdited(true)}>
-              <Create />
-            </div>
-          )}
+        currentUserMember.type === MemberType.member &&
+        member?.type === MemberType.member
+          ? currentUserRole?.canEdit && (
+              <div
+                className="member-edit-button"
+                onClick={() => setEdited(true)}
+              >
+                <Create />
+              </div>
+            )
+          : member?.type === MemberType.requested &&
+            currentUserRole?.canInvite && (
+              <div
+                className="member-edit-button"
+                onClick={() => handleAcceptMember()}
+              >
+                <Check />
+              </div>
+            )}
         {currentUserMember &&
-          currentUserMember.type === MemberType.member &&
-          currentUserRole?.canRemove && (
-            <div className="member-delete-button">
-              <Delete onClick={deleteMember} />
-            </div>
-          )}
+        currentUserMember.type === MemberType.member &&
+        member?.type === MemberType.member
+          ? currentUserRole?.canRemove && (
+              <div className="member-delete-button">
+                <Delete onClick={handleRefuseMember} />
+              </div>
+            )
+          : member?.type === MemberType.requested &&
+            currentUserRole?.canInvite && (
+              <div
+                className="member-delete-button"
+                onClick={handleRefuseMember}
+              >
+                <Close />
+              </div>
+            )}
       </div>
     </div>
   );
