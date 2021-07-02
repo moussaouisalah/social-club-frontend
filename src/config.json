@@ -2,6 +2,7 @@
   "SERVER_URL": "http://localhost:3000/",
   "USERS_ENDPOINT": "users",
   "POSTS_ENDPOINT": "posts",
+  "COMMENTS_ENDPOINT": "comments",
   "CLUBS_ENDPOINT": "clubs",
   "SIGN_UP_ENDPOINT": "signup"
 }

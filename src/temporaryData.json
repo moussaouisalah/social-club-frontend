@@ -56,6 +56,64 @@
       "roleId": 1
     }
   ],
+  "comments": [
+    {
+      "id": 1,
+      "text": "interessant!",
+      "creationDateTime": "",
+      "postId": 1,
+      "userId": 1
+    },
+    {
+      "id": 2,
+      "text": "interessant!",
+      "creationDateTime": "",
+      "postId": 1,
+      "userId": 1
+    },
+    {
+      "id": 3,
+      "text": "interessant!",
+      "creationDateTime": "",
+      "postId": 1,
+      "userId": 1
+    },
+    {
+      "id": 4,
+      "text": "interessant!",
+      "creationDateTime": "",
+      "postId": 1,
+      "userId": 1
+    },
+    {
+      "text": "test",
+      "postId": 1,
+      "userId": 1,
+      "creationDateTime": "",
+      "id": 5
+    },
+    {
+      "text": "aze",
+      "postId": 1,
+      "userId": 1,
+      "creationDateTime": "",
+      "id": 6
+    },
+    {
+      "text": "aze",
+      "postId": 1,
+      "userId": 1,
+      "creationDateTime": "",
+      "id": 7
+    },
+    {
+      "text": "gfd",
+      "postId": 1,
+      "userId": 1,
+      "creationDateTime": "",
+      "id": 8
+    }
+  ],
   "auth": [
     {
       "token": "oijrpekg",

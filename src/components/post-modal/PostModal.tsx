@@ -12,6 +12,10 @@ import {
 } from "@material-ui/icons";
 import { postProvider } from "../../providers/data-providers/postProvider";
 import { useHistory } from "react-router-dom";
+import AddComment from "../add-comment/AddComment";
+import { CommentType } from "../../types/CommentType";
+import { commentProvider } from "../../providers/data-providers/commentProvider";
+import PostComment from "../post-comment/PostComment";
 
 const makeStyles = (color: string) => ({
   border: {
@@ -29,6 +33,7 @@ const PostModal = () => {
   const { post, setPost } = useContext(PostModalContext);
   const [isLikedByUser, setLikedByUser] = useState(false);
   const [postLikes, setPostLikes] = useState(0);
+  const [comments, setComments] = useState<CommentType[]>([]);
   const history = useHistory();
 
   const handleClickAway = () => {
@@ -41,6 +46,10 @@ const PostModal = () => {
 
     checkIsLikedByUser();
 
+    commentProvider.getManyByPost(post.postId).then((commentsList) => {
+      setComments(commentsList);
+    });
+
     setPostLikes(post.likesCount);
   }, [post]);
 
@@ -50,6 +59,10 @@ const PostModal = () => {
       .then((isLikedByUser) => {
         setLikedByUser(isLikedByUser);
       });
+  };
+
+  const handleAddCommentToList = (newComment: CommentType) => {
+    setComments([newComment, ...comments]);
   };
 
   const handleRedirectToUser = () => {
@@ -126,6 +139,20 @@ const PostModal = () => {
                     {post.commentsCount}
                   </div>
                 </div>
+              </div>
+              <div className="separator"></div>
+              <AddComment
+                profileImage={post.profileImage}
+                color={post.color}
+                userId={post.userId}
+                postId={post.postId}
+                addCommentToList={handleAddCommentToList}
+              />
+              <div className="separator"></div>
+              <div className="post-comments">
+                {comments.map((comment, key) => (
+                  <PostComment key={key} comment={comment} />
+                ))}
               </div>
             </div>
           ) : (

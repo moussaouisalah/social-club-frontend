@@ -7,9 +7,6 @@
 - add photos
 - add events
 
-- add post page
-- add create comment
-
 - change all dataproviders
 - add error logger (method from app passed to children or context)
 

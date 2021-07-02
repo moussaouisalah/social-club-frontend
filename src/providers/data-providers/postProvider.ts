@@ -69,6 +69,7 @@ export const postProvider = {
         })
         .then((response) => {
           console.log("create post response: " + JSON.stringify(response));
+          resolve(response.data);
         });
     });
   },
