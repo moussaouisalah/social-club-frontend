@@ -2,6 +2,9 @@
 
 ## TODO
 
+- add create role
+- add delete role
+
 - add photos
 - add file instead of just photo (also change name of attribute)
 
@@ -11,210 +14,536 @@
 - add error logger (method from app passed to children or context)
 - add phone sidebar
 
-# ENDPOINTS
+# CLASSES
 
-## USERS
+## USER
 
-GET /users
-URL_PARAMS {
-skip?: int, // pagination offset
-take?: int, // pagination number
-ids?: int[] // get users by id
+{
+id: number;
+firstName: string;
+lastName: string;
+email: string;
+password: string; // server only
+profileImage: string;
+coverImage: string;
 }
 
-GET /users/:id
+## CLUB
 
-POST /users //signup
-BODY_PARAMS {
+{
+id: number;
+name: string;
+profileImage: string;
+coverImage: string;
+primaryColor: string;
+}
+
+## MEMBER
+
+{
+userId: number;
+clubId: number;
+type: MemberType; enum {member, requested, invited}
+roleId: number;
+}
+
+## ROLE
+
+{
+id: number;
+name: string;
+isDefault: boolean;
+canInvite: boolean;
+canRemove: boolean;
+canPost: boolean;
+canEdit: boolean;
+clubId: number;
+}
+
+## POST
+
+{
+id: number;
+text: string;
+image?: string;
+creationDateTime: Date;
+userId: number;
+clubId: number;
+}
+
+## COMMENT
+
+{
+id: number;
+text: string;
+creationDateTime: Date;
+postId: number;
+userId: number;
+}
+
+# ENDPOINTS
+
+## USER
+
+### GET /users/:id
+
+params:
+id: number
+
+description:
+get user by id
+
+return :
+{
+id: number;
+firstName: string;
+lastName: string;
+email: string;
+profileImage: string;
+coverImage: string;
+}
+
+### GET /users
+
+params:
+ids: number[] | null
+
+description:
+get all users if ids == null
+get users by ids if ids != null
+
+return:
+[
+{
+id: number;
+firstName: string;
+lastName: string;
+email: string;
+profileImage: string;
+coverImage: string;
+}
+]
+
+### PUT /users/:id
+
+params:
+url: id: number
+body: {
 firstName: string,
 lastName: string,
 email: string,
-password: string
-profileImage?: image,
-coverImage?: image
+profileImage: image | undefined,
+coverImage: image | undefined
 }
 
-PUT /users/:id
-BODY_PARAMS {
-firstName?: string,
-lastName?: string,
-email?: string,
-profileImage?: image,
-coverImage?: image
+description:
+update user
+
+return:
+{
+id: number;
+firstName: string;
+lastName: string;
+email: string;
+profileImage: string;
+coverImage: string;
 }
 
-DELETE /users/:id
+## CLUB
+
+### GET /clubs/:id
+
+params:
+id: number
+
+description:
+get club by id
+
+return:
+{
+id: number;
+name: string;
+profileImage: string;
+coverImage: string;
+primaryColor: string;
+}
+
+### GET /clubs
+
+params:
+ids: number[] | null
+
+description:
+get all clubs if ids == null
+get clubs by ids if ids != null
+
+return:
+[
+{
+id: number;
+name: string;
+profileImage: string;
+coverImage: string;
+primaryColor: string;
+}
+]
+
+### POST /clubs
+
+params:
+body: {
+name: string;
+primarycolor: string;
+profileImage: image | undefined;
+coverImage: image | undefined;
+}
+
+description:
+create club
+
+return:
+{
+id: number;
+name: string;
+profileImage: string;
+coverImage: string;
+primaryColor: string;
+}
+
+### PUT /clubs/:id
+
+params:
+{
+name,
+primaryColor,
+profileImage: image | undefined,
+coverImage: image | undefined,
+}
+
+description:
+update club
+
+return:
+{
+id: number;
+name: string;
+profileImage: string;
+coverImage: string;
+primaryColor: string;
+}
+
+## MEMBER
+
+### GET /members
+
+params:
+url: {
+userId: number | undefined;
+clubId: number | undefined;
+}
+
+description:
+if clubId != null return all members of club
+if userId != null return all members of user
+
+return:
+[
+{
+userId: number;
+clubId: number;
+type: MemberType; enum {member, requested, invited}
+roleId: number;
+}
+]
+
+### PUT / members
+
+params:
+body: {
+userId: number;
+clubId: number;
+newType: MemberType | undefined; enum {member, requested, invited, refused}
+newRoleId: number | undefined;
+}
+
+description:
+if newRoleId != null change the role of user to the new Id
+(check permission first)
+if newType != null change the type of member
+(refused == delete member)
+(check perm also)
+
+return:
+{
+userId: number;
+clubId: number;
+type: MemberType; enum {member, requested, invited}
+roleId: number;
+}
+
+## ROLE
+
+### GET /roles/:id
+
+params:
+url: id: number
+
+description:
+get role by id
+
+return:
+{
+id: number;
+name: string;
+isDefault: boolean;
+canInvite: boolean;
+canRemove: boolean;
+canPost: boolean;
+canEdit: boolean;
+clubId: number;
+}
+
+### GET /roles
+
+params:
+url: clubId: number
+
+description:
+get all club roles
+
+return:
+[
+{
+id: number;
+name: string;
+isDefault: boolean;
+canInvite: boolean;
+canRemove: boolean;
+canPost: boolean;
+canEdit: boolean;
+clubId: number;
+}
+]
+
+### POST /roles
+
+params:
+body: {
+name: string;
+isDefault: boolean;
+canInvite: boolean;
+canRemove: boolean;
+canPost: boolean;
+canEdit: boolean;
+clubId: number;
+}
+
+description:
+create role
+
+return:
+{
+id: number;
+name: string;
+isDefault: boolean;
+canInvite: boolean;
+canRemove: boolean;
+canPost: boolean;
+canEdit: boolean;
+clubId: number;
+}
+
+## POST
+
+### GET /posts
+
+params:
+url: {
+userId: number | undefined;
+clubId: number | undefined;
+skip: number; // pagination
+take: number; // pagination
+}
+
+description:
+if userId != null return all posts made in clubs where user is a member
+if clubId != null return all posts made in club
+order by creationdate latest first
+
+return:
+[
+{
+id: number;
+text: string;
+image?: string;
+creationDateTime: Date;
+userId: number;
+clubId: number;
+}
+]
+
+### GET /posts/:id?isLikedBy
+
+params:
+url: {
+isLikedBy: number;
+}
+
+description:
+check if post is liked by user
+
+return:
+{
+isLikedByUser: boolean;
+}
+
+### POST /posts/:id/like
+
+params:
+
+description:
+toggle like by connected user
+if liked then remove like
+if not liked then like
+
+return:
+{
+isLikedByUser: boolean;
+}
+
+### POST /posts
+
+params:
+body: {
+text: string;
+image: image | undefined;
+clubId: number;
+}
+
+description:
+create post
+
+return:
+{
+id: number;
+text: string;
+image?: string;
+creationDateTime: Date;
+userId: number;
+clubId: number;
+}
+
+## COMMENT
+
+### GET /comments
+
+params: postId: number;
+
+description:
+get all post comments
+
+return:
+[
+{
+id: number;
+text: string;
+creationDateTime: Date;
+postId: number;
+userId: number;
+}
+]
+
+### POST /comments
+
+params:
+body: {
+postId: number;
+text: string;
+}
+
+description:
+create comment on a post
+
+return:
+{
+id: number;
+text: string;
+creationDateTime: Date;
+postId: number;
+userId: number;
+}
 
 ## AUTH
 
-POST /changepassword
-BODY_PARAMS {
-newPassword: string
+### GET /auth/identity
+
+params:
+
+desc:
+get user token from headers and return user
+
+return:
+{
+id: number;
+firstName: string;
+lastName: string;
+email: string;
+profileImage: string;
+coverImage: string;
 }
 
-POST /login
-BODY_PARAMS {
-email: string,
-password: string
+### POST /auth/login
+
+params:
+body: {
+email: string;
+password: string;
 }
 
-## POSTS
+desc:
+login user and return token
 
-GET /posts
-URL_PARAMS {
-userId?: int, // get user posts in all clubs
-clubId?: int, // get club posts
-skip?: int, // pagination offset
-take?: int, // pagination number
+return:
+{
+token: string | undefined;
 }
 
-POST /posts
-BODY_PARAMS {
-clubId: int,
-text: string,
-file: file,
+### POST /auth/signup
+
+params:
+body: {
+firstName: string;
+lastName: string;
+email: string;
+password: string;
+profileImage: string | undefined;
+coverImage: string | undefined;
 }
-
-GET /posts/:id
-
-POST /posts/:id/like
-
-## CLUBS
-
-GET /clubs
-URL_PARAMS {
-skip?: int, // pagination offset
-take?: int, // pagination number
-ids: int, // get users by id
+desc:
+signup user and return token
+return:
+{
+token: string | undefined;
 }
-
-GET /clubs/:id
-
-POST /clubs
-BODY_PARAMS {
-name: string,
-primaryColor: string,
-profileImage?: image,
-coverImage?: image
-}
-
-PUT /clubs/:id
-BODY_PARAMS {
-name?: string,
-primaryColor?: string,
-profileImage?: image,
-coverImage?: image
-}
-
-DELETE /clubs/:id
-
-## ROLES
-
-GET /roles
-URL_PARAMS {
-clubId: int
-}
-
-POST /roles
-BODY_PARAMS {
-name: string,
-canInvite: boolean,
-canRemove: boolean,
-canPost: boolean,
-canEdit: boolean,
-}
-
-GET /roles/:id
-
-PUT /roles/:id
-BODY_PARAMS {
-name: string,
-canInvite: boolean,
-canRemove: boolean,
-canPost: boolean,
-canEdit: boolean,
-}
-
-DELETE /roles/:id
-
-## MEMBERS
-
-GET /members
-URL_PARAMS {
-userId?: int, // get user's memberships
-clubId?: int, // get club members
-}
-
-// TODO
-
-## COMMENTS
-
-// TODO
 
 ## MISC
 
-/search
-URL_PARAMS {
-name: string
-}
-RETURNS {
-users: [],
-clubs: []
+### GET /misc/search
+
+params:
+url: {
+usersOnly: boolean;
+query: string;
 }
 
-# DATA TYPES
+description:
+search by name of clubs and users
+if usersOnly search only users
 
-"users":
-{
-"firstName": "Salaheddine",
-"lastName": "Moussaoui",
-"email": "salah.moussaoui@outlook.com",
-"password": "topSecret123", // BACKEND ONLY
-"profileImage": "",
-"coverImage": "",
-"id": 1
-}
-
-"clubs":
-{
-"name": "IEEE ENSA Fès",
-"primaryColor": "#ff5722",
-"profileImage": "",
-"coverImage": "",
-"id": 1
-}
-
-"posts":
-{
-"id": 1,
-"text": "hello",
-"image": "",
-"creationDateTime": "",
-"userId": 1,
-"clubId": 1
-}
-
-"roles":
-{
-"id": 1,
-"name": "Editeur",
-"canInvite": true,
-"canRemove": true,
-"canPost": true,
-"canEdit": true,
-"isDefault": true,
-"clubId": 1
-}
-
-"members":
-{
-"userId": 1,
-"clubId": 1,
-"type": "member", // TYPES: "member", "admin"
-"roleId": 1
-}
-
-"auth":
-{
-"token": "oijrpekg",
-}
+return:
+[
+id: number;
+type: SearchResultTypes; enum {Club, User}
+name: string;
+profileImage?: string;
+]
