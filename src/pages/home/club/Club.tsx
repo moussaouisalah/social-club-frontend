@@ -5,6 +5,7 @@ import ClubProfile from "../../../components/club-profile/ClubProfile";
 import Content from "../../../components/content/Content";
 import CreatePostCard from "../../../components/create-post-card/CreatePostCard";
 import EditClub from "../../../components/edit-club/EditClub";
+import EditRoles from "../../../components/edit-roles/EditRoles";
 import InviteMemberCard from "../../../components/invite-member-card/InviteMemberCard";
 import PostCard from "../../../components/post-card/PostCard";
 import PostModal from "../../../components/post-modal/PostModal";
@@ -204,6 +205,10 @@ const Club = ({ user }: ClubProps) => {
     setMembers(members.filter((member) => member.userId !== userId));
   };
 
+  const handleAddRoleToList = (newRole: Role) => {
+    setRoles([newRole, ...roles]);
+  };
+
   return (
     <>
       <ClubProfile
@@ -287,6 +292,12 @@ const Club = ({ user }: ClubProps) => {
               primaryColor={club?.primaryColor || ""}
               editHandler={handleEditClub}
               isButtonDisabled={!user || !club || isEditDisabled}
+            />
+            <EditRoles
+              color={club?.primaryColor || ""}
+              roles={roles}
+              clubId={club?.id}
+              addRoleToList={handleAddRoleToList}
             />
           </>
         ) : (

@@ -2,9 +2,6 @@
 
 ## TODO
 
-- add create role
-- add delete role
-
 - add photos
 - change all dataproviders
 

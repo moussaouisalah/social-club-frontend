@@ -45,9 +45,10 @@ const EditClub = ({
           onChangeComplete={(color) => setFormPrimaryColor(color.hex)}
         />
         <button
-          className="login-button"
+          className="edit-roles-button"
           onClick={handleEdit}
           disabled={isButtonDisabled}
+          style={{ backgroundColor: primaryColor }}
         >
           Modifier
         </button>

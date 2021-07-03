@@ -15,4 +15,23 @@ export const roleProvider = {
       resolve(rolesList);
     });
   },
+  create: (
+    clubId: number,
+    roleName: string,
+    canEdit: boolean,
+    canInvite: boolean,
+    canPost: boolean,
+    canRemove: boolean
+  ): Promise<Role> => {
+    return new Promise((resolve, reject) => {
+      resolve({
+        id: 5,
+        name: roleName,
+        canEdit,
+        canInvite,
+        canPost,
+        canRemove,
+      });
+    });
+  },
 };
