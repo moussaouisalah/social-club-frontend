@@ -6,13 +6,9 @@
 - add delete role
 
 - add photos
-- add file instead of just photo (also change name of attribute)
-
 - change all dataproviders
-- add events
 
-- add error logger (method from app passed to children or context)
-- add phone sidebar
+- add error logger (axios interceptor)
 
 # CLASSES
 
