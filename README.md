@@ -2,7 +2,6 @@
 
 ## TODO
 
-- add photos
 - change all dataproviders
 
 - add error logger (axios interceptor)
