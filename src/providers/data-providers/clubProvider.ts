@@ -17,15 +17,21 @@ export const clubProvider = {
       resolve(clubsList);
     });
   },
-  createClub: (userId: number, name: string, primaryColor: string) => {
+  createClub: (
+    userId: number,
+    name: string,
+    primaryColor: string,
+    profileImage: HTMLInputElement | null,
+    coverImage: HTMLInputElement | null
+  ) => {
     // TODO
     return axios
       .post(SERVER_URL + CLUBS_ENDPOINT, {
         userId,
         name,
         primaryColor,
-        profileImage: "",
-        coverImage: "",
+        profileImage,
+        coverImage,
       })
       .then((response) => response.data);
   },
@@ -35,8 +41,6 @@ export const clubProvider = {
       .put(SERVER_URL + CLUBS_ENDPOINT + "/" + id, {
         name,
         primaryColor,
-        profileImage: "",
-        coverImage: "",
       })
       .then((response) => {
         console.log("update response: " + JSON.stringify(response));

@@ -35,7 +35,9 @@ export const authProvider = {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    profileImage: HTMLInputElement | null,
+    coverImage: HTMLInputElement | null
   ) => {
     return new Promise((resolve, reject) => {
       /*

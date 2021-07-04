@@ -2,14 +2,20 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { authProvider } from "../../providers/authProvider";
 import "./sign-up.css";
+import ImageUpload from "image-upload-react";
+//important for getting nice style.
+import "image-upload-react/dist/index.css";
+import CustomImagePick from "../../components/custom-image-pick/CustomImagePick";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [coverImage, setCoverImage] = useState("");
+  const [profileImage, setProfileImage] = useState<HTMLInputElement | null>(
+    null
+  );
+  const [coverImage, setCoverImage] = useState<HTMLInputElement | null>(null);
 
   const history = useHistory();
 
@@ -21,7 +27,7 @@ const SignUp = () => {
   // TODO: this and image upload
   const handleSignUp = () => {
     authProvider
-      .signup(firstName, lastName, email, password)
+      .signup(firstName, lastName, email, password, profileImage, coverImage)
       .then(() => history.push("/"));
   };
 
@@ -67,12 +73,20 @@ const SignUp = () => {
             onChange={(event) => setPassword(event.target.value)}
           />
           <div className="first-last-container justify-start">
-            <button className="profile-photo">Photo de profil</button>
-            <p>{}</p>
+            <CustomImagePick
+              pickName="Profil"
+              image={profileImage}
+              setImage={(event) => setProfileImage(event.target.files[0])}
+              className="profile-photo"
+            />
           </div>
           <div className="first-last-container justify-start">
-            <button className="cover-photo">Photo de couverture</button>
-            <p>{}</p>
+            <CustomImagePick
+              pickName="Cover"
+              image={coverImage}
+              setImage={(event) => setCoverImage(event.target.files[0])}
+              className="cover-photo"
+            />
           </div>
           <button
             className="login-button"
