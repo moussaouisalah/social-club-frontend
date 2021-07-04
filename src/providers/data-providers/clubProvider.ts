@@ -41,6 +41,8 @@ export const clubProvider = {
       .put(SERVER_URL + CLUBS_ENDPOINT + "/" + id, {
         name,
         primaryColor,
+        profileImage: "", // TODO remove
+        coverImage: "", // TODO remove
       })
       .then((response) => {
         console.log("update response: " + JSON.stringify(response));
