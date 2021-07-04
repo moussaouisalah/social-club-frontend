@@ -34,6 +34,14 @@
       "userId": 1,
       "creationDateTime": "",
       "id": 2
+    },
+    {
+      "text": "tes",
+      "image": "",
+      "clubId": 1,
+      "userId": 1,
+      "creationDateTime": "",
+      "id": 3
     }
   ],
   "roles": [

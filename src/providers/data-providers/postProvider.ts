@@ -57,12 +57,16 @@ export const postProvider = {
     });
   },
 
-  create: (clubId: number, text: string): Promise<Post> => {
+  create: (
+    clubId: number,
+    text: string,
+    postImage: HTMLInputElement | null
+  ): Promise<Post> => {
     return new Promise((resolve, reject) => {
       axios
         .post(SERVER_URL + POSTS_ENDPOINT, {
           text,
-          image: "",
+          image: "", // TODO change
           clubId,
           userId: 1, // TODO: remove this and get it from token on the server side
           creationDateTime: "", // TODO: remove this

@@ -4,6 +4,7 @@ import defaultProfile from "../../assets/default-profile.jpg";
 import { primaryColor } from "../../theme.json";
 import { postProvider } from "../../providers/data-providers/postProvider";
 import { Post } from "../../types/Post";
+import CustomImagePick from "../custom-image-pick/CustomImagePick";
 
 type CreatePostCardProps = {
   profileImage?: string;
@@ -30,12 +31,13 @@ const CreatePostCard = ({
   addPostToList,
 }: CreatePostCardProps) => {
   const [postText, setPostText] = useState("");
+  const [postImage, setPostImage] = useState<HTMLInputElement | null>(null);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const handleCreatePost = () => {
     if (!postText) return;
     setButtonDisabled(true);
-    postProvider.create(clubId, postText).then((newPost) => {
+    postProvider.create(clubId, postText, postImage).then((newPost) => {
       setButtonDisabled(false);
       setPostText("");
       addPostToList(newPost);
@@ -57,7 +59,12 @@ const CreatePostCard = ({
           onChange={(event) => setPostText(event.target.value)}
         ></textarea>
         <div className="create-post-bottom">
-          <button className="create-post-image">Image</button>
+          <CustomImagePick
+            pickName=""
+            image={postImage}
+            setImage={(event) => setPostImage(event.target.files[0])}
+            className="profile-photo"
+          />
           <button
             className="create-post-button"
             style={styles.backgroundColor}
