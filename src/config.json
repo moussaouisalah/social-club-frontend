@@ -1,8 +1,8 @@
 {
-  "SERVER_URL": "http://localhost:3000/",
+  "SERVER_URL": "http://localhost:8181/",
   "USERS_ENDPOINT": "users",
   "POSTS_ENDPOINT": "posts",
   "COMMENTS_ENDPOINT": "comments",
   "CLUBS_ENDPOINT": "clubs",
-  "SIGN_UP_ENDPOINT": "signup"
+  "SIGN_UP_ENDPOINT": "auth/signup"
 }

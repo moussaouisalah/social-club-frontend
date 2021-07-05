@@ -12,10 +12,8 @@ const SignUp = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImage, setProfileImage] = useState<HTMLInputElement | null>(
-    null
-  );
-  const [coverImage, setCoverImage] = useState<HTMLInputElement | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
 
   const history = useHistory();
 
@@ -26,9 +24,10 @@ const SignUp = () => {
 
   // TODO: this and image upload
   const handleSignUp = () => {
+    if (!profileImage || !coverImage) return;
     authProvider
       .signup(firstName, lastName, email, password, profileImage, coverImage)
-      .then(() => history.push("/"));
+      .then(() => history.push("/login"));
   };
 
   const handleRedirectToLogin = () => {

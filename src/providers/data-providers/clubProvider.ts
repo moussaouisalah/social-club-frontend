@@ -21,8 +21,8 @@ export const clubProvider = {
     userId: number,
     name: string,
     primaryColor: string,
-    profileImage: HTMLInputElement | null,
-    coverImage: HTMLInputElement | null
+    profileImage: File | null,
+    coverImage: File | null
   ) => {
     // TODO
     return axios

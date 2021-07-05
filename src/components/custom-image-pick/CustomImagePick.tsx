@@ -2,7 +2,7 @@ import React from "react";
 
 type CustomImagePickProps = {
   pickName: string;
-  image: HTMLInputElement | null;
+  image: File | null;
   setImage: (event: any) => void;
   style?: React.CSSProperties;
   className: string;

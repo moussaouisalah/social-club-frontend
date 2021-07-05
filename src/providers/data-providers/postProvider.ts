@@ -60,7 +60,7 @@ export const postProvider = {
   create: (
     clubId: number,
     text: string,
-    postImage: HTMLInputElement | null
+    postImage: File | null
   ): Promise<Post> => {
     return new Promise((resolve, reject) => {
       axios

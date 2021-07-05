@@ -36,24 +36,35 @@ export const authProvider = {
     lastName: string,
     email: string,
     password: string,
-    profileImage: HTMLInputElement | null,
-    coverImage: HTMLInputElement | null
+    profileImage: File,
+    coverImage: File
   ) => {
     return new Promise((resolve, reject) => {
-      /*
-      axios
-        .post(SERVER_URL + SIGN_UP_ENDPOINT, {
+      const formData = new FormData();
+
+      // Add images to form data
+      formData.append("profileImage", profileImage);
+      formData.append("coverImage", coverImage);
+
+      // Add the serialized JSON data to the formData (not
+      // sure what your JSON object is called)
+      formData.append(
+        "user",
+        JSON.stringify({
           firstName,
           lastName,
           email,
           password,
         })
+      );
+      axios
+        .post(SERVER_URL + SIGN_UP_ENDPOINT, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
         .then((response) => {
           console.log("sign up response: " + JSON.stringify(response));
+          resolve(undefined);
         });
-        */
-      localStorage.setItem(TOKEN_NAME, "oijrpekg");
-      resolve(undefined);
     });
   },
 };

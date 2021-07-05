@@ -13,10 +13,8 @@ const CreateClub = ({ currentUser }: CreateClubProps) => {
   const [formName, setFormName] = useState("");
   const [formColor, setFormColor] = useState("#698ef3");
   const [isButtonDisabled, setButtonDisabled] = useState(false);
-  const [profileImage, setProfileImage] = useState<HTMLInputElement | null>(
-    null
-  );
-  const [coverImage, setCoverImage] = useState<HTMLInputElement | null>(null);
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [coverImage, setCoverImage] = useState<File | null>(null);
 
   const history = useHistory();
 

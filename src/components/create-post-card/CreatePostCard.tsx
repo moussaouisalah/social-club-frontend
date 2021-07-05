@@ -31,7 +31,7 @@ const CreatePostCard = ({
   addPostToList,
 }: CreatePostCardProps) => {
   const [postText, setPostText] = useState("");
-  const [postImage, setPostImage] = useState<HTMLInputElement | null>(null);
+  const [postImage, setPostImage] = useState<File | null>(null);
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const handleCreatePost = () => {
