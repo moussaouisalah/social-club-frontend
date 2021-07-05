@@ -27,8 +27,9 @@ const User = ({ currentUser, setCurrentUser }: UserProps) => {
   const [user, setUser] = useState<UserType | undefined>(undefined);
   const [members, setMembers] = useState<Member[]>([]);
   const [tabs, setTabs] = useState<UserTab[]>([]);
-  const [selectedTab, setSelectedTab] =
-    useState<UserTab | undefined>(undefined);
+  const [selectedTab, setSelectedTab] = useState<UserTab | undefined>(
+    undefined
+  );
   const [isEditDisabled, setEditDisabled] = useState(false);
   const [isChangePasswordDisabled, setChangePasswordDisabled] = useState(false);
 
@@ -112,6 +113,7 @@ const User = ({ currentUser, setCurrentUser }: UserProps) => {
     userProvider
       .updateUser(currentUser.id, firstName, lastName, email)
       .then((data) => {
+        setUser({ ...currentUser, firstName, lastName, email });
         setCurrentUser({ ...currentUser, firstName, lastName, email });
         console.log("data: " + JSON.stringify(data));
         setEditDisabled(false);
@@ -128,14 +130,7 @@ const User = ({ currentUser, setCurrentUser }: UserProps) => {
 
   return (
     <>
-      <UserProfile
-        firstName={user?.firstName || ""}
-        lastName={user?.lastName || ""}
-        coverImage={user?.coverImage}
-        profileImage={user?.profileImage}
-        tabs={tabs}
-        tabChangeHandler={handleTabChange}
-      />
+      <UserProfile user={user} tabs={tabs} tabChangeHandler={handleTabChange} />
       <Content>
         {selectedTab?.type === UserTabType.Clubs ? (
           members.map((member, key) => (

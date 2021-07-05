@@ -11,37 +11,34 @@ export const userProvider = {
     return new Promise((resolve, reject) => {
       axios
         .get(SERVER_URL + USERS_ENDPOINT + "/" + id)
-        .then((response) => {
-          console.log(
-            "userProvider getOne: Response (" + JSON.stringify(response) + ")"
-          );
+        .then((response: any) => {
           resolve(response.data);
-        })
-        .catch((error) => {
-          console.log(
-            "userProvider getOne: Error (" + JSON.stringify(error) + ")"
-          );
         });
     });
   },
   getList: (pagination: Pagination = { skip: 0, take: 10 }) => {
     return new Promise((resolve, reject) => {
-      axios
-        .get(SERVER_URL + USERS_ENDPOINT)
-        .then((response) => {
-          console.log(response);
-          resolve(response);
-        })
-        .catch((error) => {
-          console.log(error);
-          reject(error);
-        });
+      axios.get(SERVER_URL + USERS_ENDPOINT).then((response) => {
+        resolve(response.data);
+      });
     });
   },
   getMany: (ids: number[], pagination: Pagination = { skip: 0, take: 10 }) => {
     return new Promise((resolve, reject) => {
-      const usersList = users.filter((user) => ids.includes(user.id));
-      resolve(usersList);
+      // make ids string
+      let idsString: string = "";
+      for (let i = 0; i < ids.length; i++) {
+        if (i === ids.length - 1) {
+          idsString += `${ids[i]}`;
+        } else {
+          idsString += `${ids[i]},`;
+        }
+      }
+      axios
+        .get(SERVER_URL + USERS_ENDPOINT + `?ids=${idsString}`)
+        .then((response) => {
+          resolve(response.data);
+        });
     });
   },
   updateUser: (
@@ -49,14 +46,12 @@ export const userProvider = {
     firstName: string,
     lastName: string,
     email: string
-  ) => {
+  ): Promise<User> => {
     return axios
       .put(SERVER_URL + USERS_ENDPOINT + "/" + id, {
         firstName,
         lastName,
         email,
-        profileImage: "",
-        coverImage: "",
       })
       .then((response) => {
         console.log("update response: " + JSON.stringify(response));
@@ -69,16 +64,4 @@ export const userProvider = {
       resolve("");
     });
   },
-};
-
-export const createUser = () => {
-  // TODO
-};
-
-export const deleteUser = () => {
-  // TODO
-};
-
-export const getClubs = (id: number) => {
-  // TODO
 };

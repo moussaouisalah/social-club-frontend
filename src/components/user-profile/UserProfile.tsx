@@ -3,40 +3,31 @@ import "./user-profile.css";
 import defaultCover from "../../assets/default-cover.jpg";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { UserTab, UserTabType } from "../../types/UserTab";
+import { User } from "../../types/User";
 
 type UserProfileProps = {
-  coverImage?: string;
-  profileImage?: string;
-  firstName: string;
-  lastName: string;
+  user: User | undefined;
   tabs: UserTab[];
   tabChangeHandler: (tabType: UserTabType) => void;
 };
 
-const UserProfile = ({
-  coverImage,
-  profileImage,
-  firstName,
-  lastName,
-  tabs,
-  tabChangeHandler,
-}: UserProfileProps) => {
+const UserProfile = ({ user, tabs, tabChangeHandler }: UserProfileProps) => {
   return (
     <div className="profile-container">
       <img
         className="cover-image"
-        src={coverImage || defaultCover}
+        src={user?.profileImage || defaultCover}
         alt="cover"
       />
       <div className="inner-profile">
         <div className="profile-data">
           <img
             className="profile-image"
-            src={profileImage || defaultProfile}
+            src={user?.coverImage || defaultProfile}
             alt="profile"
           />
           <div className="profile-name">
-            {firstName} {lastName}
+            {user?.firstName} {user?.lastName}
           </div>
         </div>
         <div className="tabs">

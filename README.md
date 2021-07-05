@@ -2,9 +2,14 @@
 
 ## TODO
 
-- change all dataproviders
-
-- add error logger (axios interceptor)
+- userProvider (check getMany, create changePassword)
+- clubProvider
+- memberProvider
+- postProvider
+- roleProvider
+- commentProvider
+- miscProvider
+- add error logger (axios interceptor + context + toast)
 
 # CLASSES
 

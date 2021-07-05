@@ -23,7 +23,6 @@ export const authProvider = {
   },
   login: (email: string, password: string) => {
     return new Promise((resolve, reject) => {
-      // TODO: check stuff
       axios
         .post(SERVER_URL + LOGIN_ENDPOINT, {
           email,
