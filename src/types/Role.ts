@@ -1,5 +1,5 @@
 export type Role = {
-  id: number;
+  roleId: number;
   name: string;
   // TODO: cans
   canInvite: boolean;

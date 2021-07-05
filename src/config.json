@@ -8,5 +8,6 @@
   "LOGIN_ENDPOINT": "auth",
   "IDENTITY_ENDPOINT": "auth/identity",
   "TOKEN_NAME": "auth_token",
-  "MEMBERS_ENDPOINT": "members"
+  "MEMBERS_ENDPOINT": "members",
+  "ADD_POST_ENDPOINT": "addPost"
 }

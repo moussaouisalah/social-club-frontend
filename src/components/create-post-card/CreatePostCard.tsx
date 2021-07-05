@@ -35,9 +35,11 @@ const CreatePostCard = ({
   const [isButtonDisabled, setButtonDisabled] = useState(false);
 
   const handleCreatePost = () => {
-    if (!postText) return;
+    console.log(postImage);
+    if (!postText || !postImage) return;
+    console.log("here");
     setButtonDisabled(true);
-    postProvider.create(clubId, postText, postImage).then((newPost) => {
+    postProvider.create(clubId, userId, postText, postImage).then((newPost) => {
       setButtonDisabled(false);
       setPostText("");
       addPostToList(newPost);

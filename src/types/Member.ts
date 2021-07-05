@@ -10,10 +10,7 @@ export enum MemberType {
 }
 
 export type Member = {
-  userId: number;
-  clubId: number;
   memberType: string; // TODO: change to enum
-  roleId: number;
 
   user: User;
   role: Role;

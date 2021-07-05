@@ -76,18 +76,7 @@ const Club = ({ user }: ClubProps) => {
   // get posts
   useEffect(() => {
     if (!club) return;
-    postProvider
-      .getManyByClub(club.id)
-      .then(async (posts) => {
-        return Promise.all(
-          posts.map(async (post) => {
-            // fill user
-            post.user = await userProvider.getOne(post.userId);
-            return post;
-          })
-        );
-      })
-      .then((posts) => setPosts(posts));
+    postProvider.getManyByClub(club.id).then((posts) => setPosts(posts));
   }, [club]);
 
   // create tabs
@@ -178,7 +167,7 @@ const Club = ({ user }: ClubProps) => {
     memberProvider.changeMember(user.id, club.id, newType).then((member) => {
       // TODO: handle data
       setUserMember(member);
-      roleProvider.getOne(member.roleId).then((role) => {
+      roleProvider.getOne(member.role.roleId).then((role) => {
         setUserRole(role);
       });
     });
@@ -229,10 +218,10 @@ const Club = ({ user }: ClubProps) => {
                 key={key}
                 postId={post.id}
                 clubId={id ? parseInt(id) : 1}
-                userId={post.userId}
+                userId={post.user.id}
                 firstName={(post.user?.firstName || "") as string}
                 lastName={(post.user?.lastName || "") as string}
-                dateTime={post.creationDateTime}
+                dateTime={post.creationdate}
                 profileImage={post.user?.profileImage || undefined}
                 color={club?.primaryColor || undefined}
                 text={post.text}

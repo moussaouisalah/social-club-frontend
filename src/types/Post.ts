@@ -5,13 +5,11 @@ export type Post = {
   id: number;
   text: string;
   image?: string;
-  creationDateTime: Date;
-  userId: number;
-  clubId: number;
+  creationdate: Date;
   likesCount: number;
   commentsCount: number;
 
-  user: User | undefined;
-  club: Club | undefined;
+  user: User;
+  club: Club;
   comments: Comment[] | undefined;
 };

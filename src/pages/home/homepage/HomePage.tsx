@@ -25,9 +25,9 @@ const HomePage = ({ user }: HomePageProps) => {
         return Promise.all(
           posts.map(async (post) => {
             // fill user
-            post.user = await userProvider.getOne(post.userId);
+            post.user = await userProvider.getOne(post.user.id);
             // fill club
-            post.club = await clubProvider.getOne(post.clubId);
+            post.club = await clubProvider.getOne(post.user.id);
             return post;
           })
         );
@@ -42,12 +42,12 @@ const HomePage = ({ user }: HomePageProps) => {
           <PostCard
             key={key}
             postId={post.id}
-            clubId={post.clubId}
-            userId={post.userId}
+            clubId={post.club.id}
+            userId={post.user.id}
             firstName={post.user?.firstName || ""}
             lastName={post.user?.lastName || ""}
             clubName={post.club?.name}
-            dateTime={post.creationDateTime}
+            dateTime={post.creationdate}
             profileImage={post.club?.profileImage || undefined}
             color={post.club?.primaryColor}
             text={post.text}

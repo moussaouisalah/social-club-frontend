@@ -5,7 +5,7 @@
 - userProvider (check getMany, create changePassword)
 - clubProvider (check updateClub)
 - memberProvider (check)
-- postProvider
+- postProvider (check)
 - roleProvider
 - commentProvider
 - miscProvider

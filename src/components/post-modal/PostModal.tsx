@@ -128,7 +128,7 @@ const PostModal = () => {
                     {isLikedByUser ? <ThumbUpSharp /> : <ThumbUpOutlined />}
                   </div>
                   <div className="like-count" style={styles.mainColor}>
-                    {postLikes}
+                    {}
                   </div>
                 </div>
                 <div className="comments">
@@ -136,7 +136,7 @@ const PostModal = () => {
                     <ChatOutlined />
                   </div>
                   <div className="comment-count" style={styles.mainColor}>
-                    {post.commentsCount}
+                    {}
                   </div>
                 </div>
               </div>

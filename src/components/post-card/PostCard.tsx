@@ -164,7 +164,7 @@ const PostCard = ({
             {isLikedByUser ? <ThumbUpSharp /> : <ThumbUpOutlined />}
           </div>
           <div className="like-count" style={styles.mainColor}>
-            {postLikes}
+            {}
           </div>
         </div>
         <div className="comments">
@@ -172,7 +172,7 @@ const PostCard = ({
             <ChatOutlined />
           </div>
           <div className="comment-count" style={styles.mainColor}>
-            {commentsCount}
+            {}
           </div>
         </div>
       </div>

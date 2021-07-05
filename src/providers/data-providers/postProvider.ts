@@ -1,6 +1,10 @@
 import axios from "axios";
 import { Post } from "../../types/Post";
-import { SERVER_URL, POSTS_ENDPOINT } from "../../config.json";
+import {
+  SERVER_URL,
+  POSTS_ENDPOINT,
+  ADD_POST_ENDPOINT,
+} from "../../config.json";
 import { Pagination } from "../../types/Pagination";
 
 export const postProvider = {
@@ -11,7 +15,13 @@ export const postProvider = {
     console.log("postProvider getManyByUser: Start (id: " + userId + ")");
     return new Promise((resolve, reject) => {
       axios
-        .get(SERVER_URL + POSTS_ENDPOINT + "?userId=" + userId)
+        .get(
+          SERVER_URL +
+            POSTS_ENDPOINT +
+            `?userId=${userId}&pageNo=${
+              pagination.skip! / pagination.take!
+            }&pageSize=${pagination.take}`
+        )
         .then((response) => {
           console.log(
             "postProvider getManyByUser: Response (" +
@@ -28,8 +38,19 @@ export const postProvider = {
   ): Promise<Post[]> => {
     return new Promise((resolve, reject) => {
       axios
-        .get(SERVER_URL + POSTS_ENDPOINT + "?clubId=" + clubId)
+        .get(
+          SERVER_URL +
+            POSTS_ENDPOINT +
+            `?clubId=${clubId}&pageNo=${
+              pagination.skip! / pagination.take!
+            }&pageSize=${pagination.take}`
+        )
         .then((response) => {
+          console.log(
+            "postProvider getManyByClub: Response (" +
+              JSON.stringify(response) +
+              ")"
+          );
           resolve(response.data);
         });
     });
@@ -38,11 +59,9 @@ export const postProvider = {
   getIsLikedByUser: (postId: number, userId: number): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       axios
-        .get(
-          SERVER_URL + POSTS_ENDPOINT + "/" + postId + "?isLikedBy=" + userId
-        )
+        .get(SERVER_URL + POSTS_ENDPOINT + `/${postId}?isLikedBy=${userId}`)
         .then((response) => {
-          resolve(response.data.isLikedByUser ?? false);
+          resolve(response.data ?? false);
         });
     });
   },
@@ -50,9 +69,9 @@ export const postProvider = {
   togglePostLike: (postId: number): Promise<boolean> => {
     return new Promise((resolve, reject) => {
       axios
-        .post(SERVER_URL + POSTS_ENDPOINT + "/" + postId)
+        .post(SERVER_URL + POSTS_ENDPOINT + `/${postId}/like`)
         .then((response) => {
-          resolve(response.data.isLikedByUser ?? false);
+          resolve(response.data ?? false);
         });
     });
   },
@@ -67,7 +86,7 @@ export const postProvider = {
       const formData = new FormData();
 
       // Add images to form data
-      formData.append("postImage", postImage);
+      formData.append("file", postImage);
 
       // Add the serialized JSON data to the formData (not
       // sure what your JSON object is called)
@@ -80,12 +99,12 @@ export const postProvider = {
         })
       );
       axios
-        .post(SERVER_URL + SIGN_UP_ENDPOINT, formData, {
+        .post(SERVER_URL + ADD_POST_ENDPOINT, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
           console.log("sign up response: " + JSON.stringify(response));
-          resolve(undefined);
+          resolve(response.data);
         });
     });
   },
