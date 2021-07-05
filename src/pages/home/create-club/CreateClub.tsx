@@ -19,7 +19,7 @@ const CreateClub = ({ currentUser }: CreateClubProps) => {
   const history = useHistory();
 
   const handleCreateClub = () => {
-    if (!currentUser) return;
+    if (!currentUser || !profileImage || !coverImage) return;
     clubProvider
       .createClub(currentUser.id, formName, formColor, profileImage, coverImage)
       .then((data) => {

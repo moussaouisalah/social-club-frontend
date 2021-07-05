@@ -1,9 +1,9 @@
-import axios from "axios";
 import { users } from "../../temporaryData.json";
 import { SERVER_URL, USERS_ENDPOINT } from "../../config.json";
 import { User } from "../../types/User";
 import { resolve } from "url";
 import { Pagination } from "../../types/Pagination";
+import { axios } from "../localAxios";
 
 export const userProvider = {
   getOne: (id: number): Promise<User> => {

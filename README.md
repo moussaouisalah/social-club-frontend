@@ -3,7 +3,7 @@
 ## TODO
 
 - userProvider (check getMany, create changePassword)
-- clubProvider
+- clubProvider (check updateClub)
 - memberProvider
 - postProvider
 - roleProvider
