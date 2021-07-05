@@ -69,7 +69,7 @@ const ClubProfile = ({
             >
               Rejoindre
             </button>
-          ) : member.type === MemberType.invited ? (
+          ) : member.memberType === MemberType.invited ? (
             <div>
               <button
                 className="accept-button"
@@ -85,7 +85,7 @@ const ClubProfile = ({
               </button>
             </div>
           ) : (
-            member.type === MemberType.requested && <div>En Attente</div>
+            member.memberType === MemberType.requested && <div>En Attente</div>
           )}
         </div>
         <div className="tabs">

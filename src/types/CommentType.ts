@@ -6,5 +6,5 @@ export type CommentType = {
   creationDateTime: Date;
   postId: number;
   userId: number;
-  user: User | undefined;
+  user: User;
 };

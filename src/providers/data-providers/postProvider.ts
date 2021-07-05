@@ -59,21 +59,33 @@ export const postProvider = {
 
   create: (
     clubId: number,
+    userId: number,
     text: string,
-    postImage: File | null
+    postImage: File
   ): Promise<Post> => {
     return new Promise((resolve, reject) => {
-      axios
-        .post(SERVER_URL + POSTS_ENDPOINT, {
+      const formData = new FormData();
+
+      // Add images to form data
+      formData.append("postImage", postImage);
+
+      // Add the serialized JSON data to the formData (not
+      // sure what your JSON object is called)
+      formData.append(
+        "post",
+        JSON.stringify({
           text,
-          image: "", // TODO change
-          clubId,
-          userId: 1, // TODO: remove this and get it from token on the server side
-          creationDateTime: "", // TODO: remove this
+          club: { id: clubId },
+          user: { id: userId },
+        })
+      );
+      axios
+        .post(SERVER_URL + SIGN_UP_ENDPOINT, formData, {
+          headers: { "Content-Type": "multipart/form-data" },
         })
         .then((response) => {
-          console.log("create post response: " + JSON.stringify(response));
-          resolve(response.data);
+          console.log("sign up response: " + JSON.stringify(response));
+          resolve(undefined);
         });
     });
   },

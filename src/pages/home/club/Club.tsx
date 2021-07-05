@@ -52,30 +52,17 @@ const Club = ({ user }: ClubProps) => {
   // get members
   useEffect(() => {
     if (!club || !user) return;
-    memberProvider
-      .getManyByClub(club.id)
-      .then(async (members) => {
-        return Promise.all(
-          members.map(async (member) => {
-            // fill user
-            member.user = await userProvider.getOne(member.userId);
-            // fill role
-            member.role = await roleProvider.getOne(member.roleId);
-            return member;
-          })
-        );
-      })
-      .then((members) => {
-        setMembers(members);
-        // set user role
-        const userMemberArray = members.filter(
-          (member) => member.userId === user.id
-        );
-        if (userMemberArray.length > 0) {
-          setUserMember(userMemberArray[0]);
-          setUserRole(userMemberArray[0].role);
-        }
-      });
+    memberProvider.getManyByClub(club.id).then((members) => {
+      setMembers(members);
+      // set user role
+      const userMemberArray = members.filter(
+        (member) => member.user.id === user.id
+      );
+      if (userMemberArray.length > 0) {
+        setUserMember(userMemberArray[0]);
+        setUserRole(userMemberArray[0].role);
+      }
+    });
   }, [club, user]);
 
   // get roles
@@ -107,7 +94,11 @@ const Club = ({ user }: ClubProps) => {
   useEffect(() => {
     if (!club) return;
     let createdTabs: ClubTab[];
-    if (!userRole || !userMember || userMember.type !== MemberType.member) {
+    if (
+      !userRole ||
+      !userMember ||
+      userMember.memberType !== MemberType.member
+    ) {
       createdTabs = [
         {
           name: "Membres",
@@ -196,13 +187,13 @@ const Club = ({ user }: ClubProps) => {
   const handleEditMemberInList = (userId: number, newMemberData: Member) => {
     setMembers(
       members.map((member) =>
-        member.userId === userId ? newMemberData : member
+        member.user.id === userId ? newMemberData : member
       )
     );
   };
 
   const handleDeleteMemberFromList = (userId: number) => {
-    setMembers(members.filter((member) => member.userId !== userId));
+    setMembers(members.filter((member) => member.user.id !== userId));
   };
 
   const handleAddRoleToList = (newRole: Role) => {
@@ -256,7 +247,7 @@ const Club = ({ user }: ClubProps) => {
             {user &&
               club &&
               userMember &&
-              userMember.type === MemberType.member &&
+              userMember.memberType === MemberType.member &&
               userRole?.canInvite && (
                 <InviteMemberCard
                   color={club.primaryColor}
@@ -268,7 +259,7 @@ const Club = ({ user }: ClubProps) => {
               )}
             {members.map((member, key) => (
               <ClubMemberCard
-                userId={member.userId}
+                userId={member.user?.id || 0}
                 clubId={club?.id || 0}
                 key={key}
                 profileImage={member.user?.profileImage}

@@ -118,16 +118,16 @@ const ClubMemberCard = ({
           </div>
           <div className="member-role">
             {role?.name}{" "}
-            {(member?.type === MemberType.invited ||
-              member?.type === MemberType.requested) &&
+            {(member?.memberType === MemberType.invited ||
+              member?.memberType === MemberType.requested) &&
               " (en attente)"}
           </div>
         </div>
       </div>
       <div className="member-buttons">
         {currentUserMember &&
-        currentUserMember.type === MemberType.member &&
-        member?.type === MemberType.member
+        currentUserMember.memberType === MemberType.member &&
+        member?.memberType === MemberType.member
           ? currentUserRole?.canEdit && (
               <div
                 className="member-edit-button"
@@ -136,7 +136,7 @@ const ClubMemberCard = ({
                 <Create />
               </div>
             )
-          : member?.type === MemberType.requested &&
+          : member?.memberType === MemberType.requested &&
             currentUserRole?.canInvite && (
               <div
                 className="member-edit-button"
@@ -146,14 +146,14 @@ const ClubMemberCard = ({
               </div>
             )}
         {currentUserMember &&
-        currentUserMember.type === MemberType.member &&
-        member?.type === MemberType.member
+        currentUserMember.memberType === MemberType.member &&
+        member?.memberType === MemberType.member
           ? currentUserRole?.canRemove && (
               <div className="member-delete-button">
                 <Delete onClick={handleRefuseMember} />
               </div>
             )
-          : member?.type === MemberType.requested &&
+          : member?.memberType === MemberType.requested &&
             currentUserRole?.canInvite && (
               <div
                 className="member-delete-button"

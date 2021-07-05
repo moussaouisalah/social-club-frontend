@@ -44,17 +44,6 @@ const User = ({ currentUser, setCurrentUser }: UserProps) => {
     if (!user) return;
     memberProvider
       .getManyByUser(user.id)
-      .then(async (members) => {
-        return Promise.all(
-          members.map(async (member) => {
-            // fill club
-            member.club = await clubProvider.getOne(member.userId);
-            // fill role
-            member.role = await roleProvider.getOne(member.roleId);
-            return member;
-          })
-        );
-      })
       .then((members) => setMembers(members));
   }, [user]);
 

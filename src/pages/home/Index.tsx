@@ -47,7 +47,7 @@ const Index = () => {
     memberProvider
       .getManyByUser(user.id)
       .then((members) => {
-        const clubsIds = members.map((member) => member.clubId);
+        const clubsIds = members.map((member) => member.club?.id || 0);
         clubProvider.getMany(clubsIds).then((clubs) => setClubs(clubs));
       })
       .catch((error) => {});

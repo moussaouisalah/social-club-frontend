@@ -7,5 +7,6 @@
   "SIGN_UP_ENDPOINT": "auth/signup",
   "LOGIN_ENDPOINT": "auth",
   "IDENTITY_ENDPOINT": "auth/identity",
-  "TOKEN_NAME": "auth_token"
+  "TOKEN_NAME": "auth_token",
+  "MEMBERS_ENDPOINT": "members"
 }

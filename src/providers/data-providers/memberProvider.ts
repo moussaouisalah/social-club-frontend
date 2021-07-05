@@ -1,18 +1,26 @@
 import { members } from "../../temporaryData.json";
 import { Member, MemberType } from "../../types/Member";
 import { Pagination } from "../../types/Pagination";
+import { axios } from "../localAxios";
+import { SERVER_URL, MEMBERS_ENDPOINT } from "../../config.json";
 
 export const memberProvider = {
   getManyByUser: (userId: number): Promise<Member[]> => {
     return new Promise((resolve, reject) => {
-      const membersList = members.filter((member) => userId === member.userId);
-      resolve(membersList);
+      axios
+        .get(SERVER_URL + MEMBERS_ENDPOINT + `?userId=${userId}`)
+        .then((response: any) => {
+          resolve(response.data);
+        });
     });
   },
   getManyByClub: (clubId: number): Promise<Member[]> => {
     return new Promise((resolve, reject) => {
-      const membersList = members.filter((member) => clubId === member.clubId);
-      resolve(membersList);
+      axios
+        .get(SERVER_URL + MEMBERS_ENDPOINT + `?clubId=${clubId}`)
+        .then((response: any) => {
+          resolve(response.data);
+        });
     });
   },
   changeMember: (
@@ -21,30 +29,41 @@ export const memberProvider = {
     newType: MemberType
   ): Promise<Member> => {
     return new Promise((resolve, reject) => {
-      // TODO
-      const memberArray = members.filter(
-        (member) => clubId === member.clubId && userId === member.userId
-      );
-      if (memberArray.length === 0) {
-        resolve({
-          clubId,
-          userId,
-          type: newType,
-          roleId: 1,
+      axios
+        .put(SERVER_URL + MEMBERS_ENDPOINT, {
+          user: { id: userId },
+          club: { id: clubId },
+          memberType: newType.toString(),
+        })
+        .then((response: any) => {
+          resolve(response.data);
         });
-      } else {
-        resolve({ ...memberArray[0], type: newType });
-      }
     });
   },
   updateMember: (userId: number, clubId: number, newRoleId: number) => {
     return new Promise((resolve, reject) => {
-      resolve("membersList");
+      axios
+        .put(SERVER_URL + MEMBERS_ENDPOINT, {
+          user: { id: userId },
+          club: { id: clubId },
+          role: { id: newRoleId },
+        })
+        .then((response: any) => {
+          resolve(response.data);
+        });
     });
   },
   deleteMember: (userId: number, clubId: number) => {
     return new Promise((resolve, reject) => {
-      resolve("membersList");
+      axios
+        .put(SERVER_URL + MEMBERS_ENDPOINT, {
+          user: { id: userId },
+          club: { id: clubId },
+          memberType: "refused",
+        })
+        .then((response: any) => {
+          resolve(response.data);
+        });
     });
   },
 };

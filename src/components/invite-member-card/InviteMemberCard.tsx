@@ -55,7 +55,7 @@ const InviteMemberCard = ({
         setSearchResults(
           searchResults.filter(
             (searchResult) =>
-              !members.some((member) => searchResult.id === member.userId)
+              !members.some((member) => searchResult.id === member.user.id)
           )
         )
       );
