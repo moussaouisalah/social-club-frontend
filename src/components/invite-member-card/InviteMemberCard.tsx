@@ -131,7 +131,7 @@ const InviteMemberCard = ({
       >
         <option value="role">Role</option>
         {clubRoles.map((clubRole, key) => (
-          <option value={clubRole.id} key={key}>
+          <option value={clubRole.roleId} key={key}>
             {clubRole.name}
           </option>
         ))}

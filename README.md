@@ -6,7 +6,7 @@
 - clubProvider (check updateClub)
 - memberProvider (check)
 - postProvider (check)
-- roleProvider
+- roleProvider (check)
 - commentProvider
 - miscProvider
 - add error logger (axios interceptor + context + toast)

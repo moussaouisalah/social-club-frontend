@@ -74,9 +74,9 @@ const EditMemberCard = ({
         <option value="role">Role</option>
         {clubRoles.map((clubRole, key) => (
           <option
-            value={clubRole.id}
+            value={clubRole.roleId}
             key={key}
-            selected={clubRole.id === selectedRoleId}
+            selected={clubRole.roleId === selectedRoleId}
           >
             {clubRole.name}
           </option>

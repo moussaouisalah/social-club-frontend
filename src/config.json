@@ -9,5 +9,6 @@
   "IDENTITY_ENDPOINT": "auth/identity",
   "TOKEN_NAME": "auth_token",
   "MEMBERS_ENDPOINT": "members",
-  "ADD_POST_ENDPOINT": "addPost"
+  "ADD_POST_ENDPOINT": "addPost",
+  "ROLES_ENDPOINT": "roles"
 }

@@ -94,7 +94,7 @@ const ClubMemberCard = ({
         firstName={firstName}
         lastName={lastName}
         clubRoles={clubRoles}
-        currentRoleId={currentUserRole?.id || 0}
+        currentRoleId={currentUserRole?.roleId || 0}
         color={color}
         editHandler={editMemberRole}
         cancelHandler={() => setEdited(false)}
