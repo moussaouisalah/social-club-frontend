@@ -1,24 +1,21 @@
-import axios from "axios";
 import { auth, users } from "../temporaryData.json";
 import { User } from "../types/User";
-import { SERVER_URL, SIGN_UP_ENDPOINT } from "../config.json";
-
-const TOKEN_NAME = "auth_token";
+import {
+  SERVER_URL,
+  SIGN_UP_ENDPOINT,
+  LOGIN_ENDPOINT,
+  IDENTITY_ENDPOINT,
+  TOKEN_NAME,
+} from "../config.json";
+import { axios } from "./localAxios";
 
 export const authProvider = {
   getIdentity: (): Promise<User> => {
     console.log("authProvider getIdentity: Start");
     return new Promise((resolve, reject) => {
-      const token = localStorage.getItem(TOKEN_NAME);
-      if (!token) reject("Vous n'êtes pas connecté.");
-      const userAuth = auth.find((item) => item.token === token);
-      if (!userAuth) reject("invalid token");
-      const user = users.find((user) => user.id === userAuth!.userId);
-      console.log(
-        "authProvider getIdentity: Response (" + JSON.stringify(user) + ")"
-      );
-      if (!user) reject("User not found");
-      resolve(user!);
+      axios.get(SERVER_URL + IDENTITY_ENDPOINT).then((response: any) => {
+        resolve(response.data);
+      });
     });
   },
   logout: () => {
@@ -27,8 +24,16 @@ export const authProvider = {
   login: (email: string, password: string) => {
     return new Promise((resolve, reject) => {
       // TODO: check stuff
-      localStorage.setItem(TOKEN_NAME, "oijrpekg");
-      resolve(undefined);
+      axios
+        .post(SERVER_URL + LOGIN_ENDPOINT, {
+          email,
+          password,
+        })
+        .then((response: any) => {
+          localStorage.setItem(TOKEN_NAME, response.data.jwtToken);
+          console.log(localStorage.getItem(TOKEN_NAME));
+          resolve(undefined);
+        });
     });
   },
   signup: (
