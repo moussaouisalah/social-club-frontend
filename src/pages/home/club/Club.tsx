@@ -227,7 +227,7 @@ const Club = ({ user }: ClubProps) => {
                 profileImage={post.user?.profileImage || undefined}
                 color={club?.primaryColor || undefined}
                 text={post.text}
-                image={post.image}
+                image={post.file}
                 likesCount={post.likesCount || 0}
                 commentsCount={post.commentsCount || 0}
               />

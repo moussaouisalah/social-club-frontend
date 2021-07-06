@@ -39,7 +39,7 @@ const HomePage = ({ user }: HomePageProps) => {
             profileImage={post.club?.profileImage || undefined}
             color={post.club?.primaryColor}
             text={post.text}
-            image={post.image}
+            image={post.file}
             likesCount={post.likesCount || 0}
             commentsCount={post.commentsCount || 0}
           />

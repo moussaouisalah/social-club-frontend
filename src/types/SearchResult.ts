@@ -1,6 +1,6 @@
 export enum SearchResultTypes {
-  Club,
-  User,
+  Club = "club",
+  User = "user",
 }
 
 export type SearchResult = {

@@ -10,5 +10,7 @@
   "TOKEN_NAME": "auth_token",
   "MEMBERS_ENDPOINT": "members",
   "ADD_POST_ENDPOINT": "addPost",
-  "ROLES_ENDPOINT": "roles"
+  "ROLES_ENDPOINT": "roles",
+  "SEARCH_USERS_ENDPOINT": "searchusers",
+  "SEARCH_ENDPOINT": "search"
 }
