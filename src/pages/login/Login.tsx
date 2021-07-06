@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { authProvider } from "../../providers/authProvider";
 import "./login.css";
+import { TOKEN_NAME } from "../../config.json";
 
 const Login = () => {
   const [emailField, setEmailField] = useState("");
@@ -11,7 +12,9 @@ const Login = () => {
 
   // redirect if already logged in
   useEffect(() => {
-    authProvider.getIdentity().then(() => history.push("/"));
+    if (localStorage.getItem(TOKEN_NAME)) {
+      authProvider.getIdentity().then(() => history.push("/"));
+    }
   }, []);
 
   const handleLogin = () => {

@@ -17,6 +17,7 @@ import PostModal from "../../components/post-modal/PostModal";
 import { Post } from "../../types/Post";
 import { PostModalContext } from "../../contexts/PostModalContext";
 import { PostModalProps } from "../../types/PostModalProps";
+import { TOKEN_NAME } from "../../config.json";
 
 const Index = () => {
   // TODO: add user to types
@@ -30,6 +31,10 @@ const Index = () => {
 
   // check login and get user
   useEffect(() => {
+    if (!localStorage.getItem(TOKEN_NAME)) {
+      history.push("/login");
+      return;
+    }
     authProvider
       .getIdentity()
       .then((user) => {
@@ -47,7 +52,8 @@ const Index = () => {
     memberProvider
       .getManyByUser(user.id)
       .then((members) => {
-        const clubsIds = members.map((member) => member.club?.id || 0);
+        const clubsIds = members.map((member) => member.club.id);
+        if (clubsIds.length === 0) return;
         clubProvider.getMany(clubsIds).then((clubs) => setClubs(clubs));
       })
       .catch((error) => {});

@@ -9,7 +9,7 @@ import { SERVER_URL } from "../../config.json";
 type AddCommentProps = {
   profileImage?: string;
   color?: string;
-  userId: number;
+  userId: number | undefined;
   postId: number;
   addCommentToList: (newComment: CommentType) => void;
 };
@@ -35,7 +35,7 @@ const AddComment = ({
 
   const handleCreateComment = () => {
     console.log(commentText);
-    if (!commentText) return;
+    if (!commentText || !userId) return;
     setButtonDisabled(true);
     commentProvider.create(postId, userId, commentText).then((newComment) => {
       setButtonDisabled(false);

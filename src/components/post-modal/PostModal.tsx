@@ -17,6 +17,8 @@ import { CommentType } from "../../types/CommentType";
 import { commentProvider } from "../../providers/data-providers/commentProvider";
 import PostComment from "../post-comment/PostComment";
 import { SERVER_URL } from "../../config.json";
+import { User } from "../../types/User";
+import { authProvider } from "../../providers/authProvider";
 
 const makeStyles = (color: string) => ({
   border: {
@@ -32,6 +34,7 @@ const makeStyles = (color: string) => ({
 
 const PostModal = () => {
   const { post, setPost } = useContext(PostModalContext);
+  const [user, setUser] = useState<User | undefined>(undefined);
   const [isLikedByUser, setLikedByUser] = useState(false);
   const [postLikes, setPostLikes] = useState(0);
   const [comments, setComments] = useState<CommentType[]>([]);
@@ -41,6 +44,12 @@ const PostModal = () => {
     if (!setPost) return;
     setPost(undefined);
   };
+
+  useEffect(() => {
+    authProvider.getIdentity().then((newUser) => {
+      setUser(newUser);
+    });
+  }, []);
 
   useEffect(() => {
     if (!post) return;
@@ -151,9 +160,9 @@ const PostModal = () => {
               </div>
               <div className="separator"></div>
               <AddComment
-                profileImage={post.profileImage}
+                profileImage={user?.profileImage}
                 color={post.color}
-                userId={post.userId}
+                userId={user?.id}
                 postId={post.postId}
                 addCommentToList={handleAddCommentToList}
               />

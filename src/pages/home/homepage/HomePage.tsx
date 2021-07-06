@@ -6,8 +6,8 @@ import { postProvider } from "../../../providers/data-providers/postProvider";
 import { userProvider } from "../../../providers/data-providers/userProvider";
 import { Post } from "../../../types/Post";
 import { User } from "../../../types/User";
-import banner1 from "../../../assets/banner.jpeg";
-import banner2 from "../../../assets/banner2.jpeg";
+import banner1 from "../../../assets/banner.jpg";
+import banner2 from "../../../assets/banner2.jpg";
 import { SERVER_URL } from "../../../config.json";
 
 type HomePageProps = {

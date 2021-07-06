@@ -6,6 +6,7 @@ import ImageUpload from "image-upload-react";
 //important for getting nice style.
 import "image-upload-react/dist/index.css";
 import CustomImagePick from "../../components/custom-image-pick/CustomImagePick";
+import { TOKEN_NAME } from "../../config.json";
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -19,7 +20,9 @@ const SignUp = () => {
 
   // redirect if already logged in
   useEffect(() => {
-    authProvider.getIdentity().then(() => history.push("/"));
+    if (localStorage.getItem(TOKEN_NAME)) {
+      authProvider.getIdentity().then(() => history.push("/"));
+    }
   }, []);
 
   // TODO: this and image upload

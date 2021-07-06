@@ -17,9 +17,7 @@ const UserProfile = ({ user, tabs, tabChangeHandler }: UserProfileProps) => {
     <div className="profile-container">
       <img
         className="cover-image"
-        src={
-          user?.profileImage ? SERVER_URL + user?.profileImage : defaultCover
-        }
+        src={user?.coverImage ? SERVER_URL + user?.coverImage : defaultCover}
         alt="cover"
       />
       <div className="inner-profile">
@@ -27,7 +25,9 @@ const UserProfile = ({ user, tabs, tabChangeHandler }: UserProfileProps) => {
           <img
             className="profile-image"
             src={
-              user?.coverImage ? SERVER_URL + user?.coverImage : defaultProfile
+              user?.profileImage
+                ? SERVER_URL + user?.profileImage
+                : defaultProfile
             }
             alt="profile"
           />
