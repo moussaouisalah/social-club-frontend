@@ -7,7 +7,7 @@
 - memberProvider (check)
 - postProvider (check)
 - roleProvider (check)
-- commentProvider
+- commentProvider (check)
 - miscProvider
 - add error logger (axios interceptor + context + toast)
 

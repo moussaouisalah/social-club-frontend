@@ -32,7 +32,8 @@ const PostComment = ({ comment, color = primaryColor }: PostCommentProps) => {
 
   // get user
   useEffect(() => {
-    userProvider.getOne(comment.user.id).then((user) => {
+    userProvider.getOne(comment.user_owner_comment.id).then((user) => {
+      console.log("here");
       setUser(user);
     });
   }, []);

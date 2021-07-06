@@ -17,14 +17,17 @@ export const commentProvider = {
         });
     });
   },
-  create: (postId: number, text: string): Promise<CommentType> => {
+  create: (
+    postId: number,
+    userId: number,
+    text: string
+  ): Promise<CommentType> => {
     return new Promise((resolve, reject) => {
       axios
         .post(SERVER_URL + COMMENTS_ENDPOINT, {
           text,
-          postId,
-          userId: 1, // TODO: remove this and get it from token on the server side
-          creationDateTime: "", // TODO: remove this
+          post: { id: postId },
+          user_owner_comment: { id: userId },
         })
         .then((response) => {
           console.log("create comment response: " + JSON.stringify(response));

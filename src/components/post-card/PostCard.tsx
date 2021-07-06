@@ -8,8 +8,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { PostModalContext } from "../../contexts/PostModalContext";
+import { clubProvider } from "../../providers/data-providers/clubProvider";
 import { postProvider } from "../../providers/data-providers/postProvider";
+import { userProvider } from "../../providers/data-providers/userProvider";
 import { primaryColor } from "../../theme.json";
+import { Club } from "../../types/Club";
+import { User } from "../../types/User";
 import "./post-card.css";
 
 type PostCardProps = {
@@ -55,6 +59,8 @@ const PostCard = ({
   likesCount,
   commentsCount,
 }: PostCardProps) => {
+  const [user, setUser] = useState<User | undefined>(undefined);
+  const [club, setClub] = useState<Club | undefined>(undefined);
   const [isTextFullLength, setTextFullLength] = useState(text.length < 200);
   const [isLikedByUser, setLikedByUser] = useState(false);
   const [postLikes, setPostLikes] = useState(likesCount);
@@ -62,6 +68,22 @@ const PostCard = ({
   const { post, setPost: setOpenedPost } = useContext(PostModalContext);
 
   const history = useHistory();
+
+  // get user
+  useEffect(() => {
+    if (!userId) return;
+    userProvider.getOne(userId).then((newUser) => {
+      setUser(newUser);
+    });
+  }, [userId]);
+
+  // get club
+  useEffect(() => {
+    if (!clubId) return;
+    clubProvider.getOne(clubId).then((newClub) => {
+      setClub(newClub);
+    });
+  }, [clubId]);
 
   // get is liked
   useEffect(() => {
@@ -101,11 +123,11 @@ const PostCard = ({
       postId,
       userId,
       clubId,
-      firstName,
-      lastName,
+      firstName: user?.firstName || "",
+      lastName: user?.lastName || "",
       dateTime,
-      profileImage,
-      clubName,
+      profileImage: user?.profileImage || "",
+      clubName: club?.name || "",
       color,
       text,
       image,
@@ -127,7 +149,7 @@ const PostCard = ({
               }
               style={{ cursor: "pointer" }}
             >
-              {firstName + " " + lastName}
+              {user?.firstName + " " + user?.lastName}
             </span>{" "}
             <span
               onClick={
@@ -135,7 +157,7 @@ const PostCard = ({
               }
               style={{ cursor: "pointer" }}
             >
-              {clubName ? "> " + clubName : ""}
+              {club?.name ? "> " + club?.name : ""}
             </span>
           </div>
           <div className="post-header-time">{dateTime.toString()}</div>

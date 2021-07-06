@@ -19,20 +19,7 @@ const HomePage = ({ user }: HomePageProps) => {
   useEffect(() => {
     if (!user) return;
     // get posts from all clubs where user is a member
-    postProvider
-      .getManyByUser(user.id)
-      .then(async (posts) => {
-        return Promise.all(
-          posts.map(async (post) => {
-            // fill user
-            post.user = await userProvider.getOne(post.user.id);
-            // fill club
-            post.club = await clubProvider.getOne(post.user.id);
-            return post;
-          })
-        );
-      })
-      .then((posts) => setPosts(posts));
+    postProvider.getManyByUser(user.id).then((posts) => setPosts(posts));
   }, [user]);
 
   return (

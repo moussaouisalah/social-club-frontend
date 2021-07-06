@@ -27,6 +27,7 @@ const AddComment = ({
   addCommentToList,
   color = primaryColor,
   postId,
+  userId,
 }: AddCommentProps) => {
   const [commentText, setCommentText] = useState("");
   const [isButtonDisabled, setButtonDisabled] = useState(false);
@@ -35,7 +36,7 @@ const AddComment = ({
     console.log(commentText);
     if (!commentText) return;
     setButtonDisabled(true);
-    commentProvider.create(postId, commentText).then((newComment) => {
+    commentProvider.create(postId, userId, commentText).then((newComment) => {
       setButtonDisabled(false);
       console.log("commentText");
       setCommentText("");
