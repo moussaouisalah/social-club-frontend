@@ -33,11 +33,12 @@ const PostComment = ({ comment, color = primaryColor }: PostCommentProps) => {
 
   // get user
   useEffect(() => {
+    if (!comment.user_owner_comment) return;
     userProvider.getOne(comment.user_owner_comment.id).then((user) => {
       console.log("here");
       setUser(user);
     });
-  }, []);
+  }, [comment.user_owner_comment]);
 
   const handleRedirectToUser = () => {
     if (!setPost) return;
