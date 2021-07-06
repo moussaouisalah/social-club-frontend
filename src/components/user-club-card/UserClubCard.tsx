@@ -3,6 +3,7 @@ import defaultImage from "../../assets/default-club.png";
 import "./user-club-card.css";
 import { primaryColor } from "../../theme.json";
 import { useHistory } from "react-router-dom";
+import { SERVER_URL } from "../../config.json";
 
 type UserClubCardProps = {
   id: number;
@@ -37,7 +38,11 @@ const UserClubCard = ({
   const styles = makeStyles(color);
   return (
     <div className="club-card" style={styles.clubCard}>
-      <img className="club-image" src={image || defaultImage} alt="club" />
+      <img
+        className="club-image"
+        src={image ? SERVER_URL + image : defaultImage}
+        alt="club"
+      />
       <div className="club-data">
         <div
           className="club-name"

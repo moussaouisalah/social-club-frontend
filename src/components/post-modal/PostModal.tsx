@@ -16,6 +16,7 @@ import AddComment from "../add-comment/AddComment";
 import { CommentType } from "../../types/CommentType";
 import { commentProvider } from "../../providers/data-providers/commentProvider";
 import PostComment from "../post-comment/PostComment";
+import { SERVER_URL } from "../../config.json";
 
 const makeStyles = (color: string) => ({
   border: {
@@ -91,7 +92,11 @@ const PostModal = () => {
               <div className="post-header">
                 <img
                   className="post-header-image"
-                  src={post.profileImage ?? defaultProfile}
+                  src={
+                    post.profileImage
+                      ? SERVER_URL + post.profileImage
+                      : defaultProfile
+                  }
                   alt="profile"
                 />
                 <div className="post-header-data">
@@ -116,7 +121,11 @@ const PostModal = () => {
               </div>
               <div className="post-text">{post.text}</div>
               {post.image && (
-                <img className="post-image" src={post.image} alt="post" />
+                <img
+                  className="post-image"
+                  src={SERVER_URL + post.image}
+                  alt="post"
+                />
               )}
               <div className="post-reactions">
                 <div

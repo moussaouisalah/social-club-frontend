@@ -7,6 +7,7 @@ import { primaryColor } from "../../theme.json";
 import "./post-comment.css";
 import { userProvider } from "../../providers/data-providers/userProvider";
 import { User } from "../../types/User";
+import { SERVER_URL } from "../../config.json";
 
 type PostCommentProps = {
   comment: CommentType;
@@ -50,7 +51,11 @@ const PostComment = ({ comment, color = primaryColor }: PostCommentProps) => {
       <div className="comment-header">
         <img
           className="comment-header-image"
-          src={user?.profileImage || defaultProfile}
+          src={
+            user?.profileImage
+              ? SERVER_URL + user?.profileImage
+              : defaultProfile
+          }
           alt="profile"
         />
         <div className="comment-header-data">

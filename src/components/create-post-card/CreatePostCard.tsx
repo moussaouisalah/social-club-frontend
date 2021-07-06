@@ -5,6 +5,7 @@ import { primaryColor } from "../../theme.json";
 import { postProvider } from "../../providers/data-providers/postProvider";
 import { Post } from "../../types/Post";
 import CustomImagePick from "../custom-image-pick/CustomImagePick";
+import { SERVER_URL } from "../../config.json";
 
 type CreatePostCardProps = {
   profileImage?: string;
@@ -51,7 +52,7 @@ const CreatePostCard = ({
     <div className="create-post-card" style={styles.border}>
       <img
         className="create-post-header-image"
-        src={profileImage}
+        src={SERVER_URL + profileImage}
         alt="profile"
       />
       <div className="create-post-content">

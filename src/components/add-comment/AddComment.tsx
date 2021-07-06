@@ -4,6 +4,7 @@ import { CommentType } from "../../types/CommentType";
 import "./add-comment.css";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { commentProvider } from "../../providers/data-providers/commentProvider";
+import { SERVER_URL } from "../../config.json";
 
 type AddCommentProps = {
   profileImage?: string;
@@ -49,7 +50,7 @@ const AddComment = ({
     <div className="add-comment-card">
       <img
         className="add-comment-header-image"
-        src={profileImage}
+        src={SERVER_URL + profileImage}
         alt="profile"
       />
       <div className="add-comment-content">

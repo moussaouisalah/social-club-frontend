@@ -6,6 +6,7 @@ import defaultClub from "../../assets/default-club.png";
 import { Role } from "../../types/Role";
 import { ClubTab, ClubTabType } from "../../types/ClubTab";
 import { Member, MemberType } from "../../types/Member";
+import { SERVER_URL } from "../../config.json";
 
 type ClubProfileProps = {
   coverImage?: string;
@@ -35,8 +36,8 @@ const makeStyles = (color: string) => ({
 });
 
 const ClubProfile = ({
-  coverImage = defaultCover,
-  profileImage = defaultClub,
+  coverImage,
+  profileImage,
   name,
   tabs,
   color = primaryColor,
@@ -49,11 +50,19 @@ const ClubProfile = ({
   const styles = makeStyles(color);
   return (
     <div className="profile-container">
-      <img className="cover-image" src={coverImage} alt="cover" />
+      <img
+        className="cover-image"
+        src={coverImage ? SERVER_URL + coverImage : defaultCover}
+        alt="cover"
+      />
       <div className="inner-profile">
         <div className="profile-data-container">
           <div className="profile-data">
-            <img className="profile-image" src={profileImage} alt="profile" />
+            <img
+              className="profile-image"
+              src={profileImage ? SERVER_URL + profileImage : defaultClub}
+              alt="profile"
+            />
             <div>
               <div className="profile-name" style={styles.color}>
                 {name}

@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import EditMemberCard from "../edit-member-card/EditMemberCard";
 import { memberProvider } from "../../providers/data-providers/memberProvider";
 import { Member, MemberType } from "../../types/Member";
+import { SERVER_URL } from "../../config.json";
 
 type ClubMemberCardProps = {
   userId: number;
@@ -105,7 +106,7 @@ const ClubMemberCard = ({
       <div className="member-data-container">
         <img
           className="member-image"
-          src={profileImage || defaultProfile}
+          src={profileImage ? SERVER_URL + profileImage : defaultProfile}
           alt="profile"
         />
         <div className="member-data">

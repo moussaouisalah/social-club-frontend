@@ -10,6 +10,7 @@ import defaultUserProfile from "../../assets/default-profile.jpg";
 import defaultClubProfile from "../../assets/default-club.png";
 import { SearchResult, SearchResultTypes } from "../../types/SearchResult";
 import { miscProvider } from "../../providers/data-providers/miscProvider";
+import { SERVER_URL } from "../../config.json";
 
 type NavbarProps = {
   user: User | undefined;
@@ -82,8 +83,9 @@ const Navbar = ({ user }: NavbarProps) => {
                 <img
                   className="nav-search-image"
                   src={
-                    searchResult?.profileImage ||
-                    searchResult.type === SearchResultTypes.User
+                    searchResult?.profileImage
+                      ? SERVER_URL + searchResult?.profileImage
+                      : searchResult.type === SearchResultTypes.User
                       ? defaultUserProfile
                       : defaultClubProfile
                   }
@@ -101,7 +103,11 @@ const Navbar = ({ user }: NavbarProps) => {
             <>
               <img
                 className="user-image"
-                src={(user.profileImage || defaultImage) as string}
+                src={
+                  (user.profileImage
+                    ? SERVER_URL + user.profileImage
+                    : defaultImage) as string
+                }
                 alt="user"
               />
               <div className="user-name">

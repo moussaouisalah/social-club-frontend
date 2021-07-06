@@ -8,6 +8,7 @@ import { Post } from "../../../types/Post";
 import { User } from "../../../types/User";
 import banner1 from "../../../assets/banner.jpeg";
 import banner2 from "../../../assets/banner2.jpeg";
+import { SERVER_URL } from "../../../config.json";
 
 type HomePageProps = {
   user: User | undefined;

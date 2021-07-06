@@ -15,6 +15,7 @@ import { primaryColor } from "../../theme.json";
 import { Club } from "../../types/Club";
 import { User } from "../../types/User";
 import "./post-card.css";
+import { SERVER_URL } from "../../config.json";
 
 type PostCardProps = {
   postId: number;
@@ -140,7 +141,15 @@ const PostCard = ({
   return (
     <div className="post" style={styles.border} onClick={handleClick}>
       <div className="post-header">
-        <img className="post-header-image" src={profileImage} alt="profile" />
+        <img
+          className="post-header-image"
+          src={
+            user?.profileImage
+              ? SERVER_URL + user?.profileImage
+              : defaultProfile
+          }
+          alt="profile"
+        />
         <div className="post-header-data">
           <div className="post-header-name" style={styles.mainColor}>
             <span
@@ -175,7 +184,9 @@ const PostCard = ({
           </span>
         )}
       </div>
-      {image && <img className="post-image" src={image} alt="post" />}
+      {image && (
+        <img className="post-image" src={SERVER_URL + image} alt="post" />
+      )}
       <div className="post-reactions">
         <div
           className="likes"

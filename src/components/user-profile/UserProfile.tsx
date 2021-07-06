@@ -4,6 +4,7 @@ import defaultCover from "../../assets/default-cover.jpg";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { UserTab, UserTabType } from "../../types/UserTab";
 import { User } from "../../types/User";
+import { SERVER_URL } from "../../config.json";
 
 type UserProfileProps = {
   user: User | undefined;
@@ -16,14 +17,18 @@ const UserProfile = ({ user, tabs, tabChangeHandler }: UserProfileProps) => {
     <div className="profile-container">
       <img
         className="cover-image"
-        src={user?.profileImage || defaultCover}
+        src={
+          user?.profileImage ? SERVER_URL + user?.profileImage : defaultCover
+        }
         alt="cover"
       />
       <div className="inner-profile">
         <div className="profile-data">
           <img
             className="profile-image"
-            src={user?.coverImage || defaultProfile}
+            src={
+              user?.coverImage ? SERVER_URL + user?.coverImage : defaultProfile
+            }
             alt="profile"
           />
           <div className="profile-name">

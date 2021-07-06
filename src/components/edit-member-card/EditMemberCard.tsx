@@ -4,6 +4,7 @@ import "./invite-member-card.css";
 import "./club-member-card.css";
 import { Role } from "../../types/Role";
 import defaultProfile from "../../assets/default-profile.jpg";
+import { SERVER_URL } from "../../config.json";
 
 type EditMemberCardProps = {
   profileImage?: string;
@@ -57,7 +58,7 @@ const EditMemberCard = ({
       <div className="member-data-container">
         <img
           className="member-image"
-          src={profileImage || defaultProfile}
+          src={profileImage ? SERVER_URL + profileImage : defaultProfile}
           alt="profile"
         />
         <div className="member-data">

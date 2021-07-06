@@ -8,6 +8,7 @@ import { miscProvider } from "../../providers/data-providers/miscProvider";
 import defaultProfile from "../../assets/default-profile.jpg";
 import { memberProvider } from "../../providers/data-providers/memberProvider";
 import { Member, MemberType } from "../../types/Member";
+import { SERVER_URL } from "../../config.json";
 
 type InviteMemberCardProps = {
   clubId: number;
@@ -116,7 +117,11 @@ const InviteMemberCard = ({
             >
               <img
                 className="nav-search-image"
-                src={searchResult?.profileImage || defaultProfile}
+                src={
+                  searchResult?.profileImage
+                    ? SERVER_URL + searchResult?.profileImage
+                    : defaultProfile
+                }
                 alt="profile"
               />
               <div className="nav-search-name">{searchResult.name}</div>

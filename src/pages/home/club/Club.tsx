@@ -193,6 +193,8 @@ const Club = ({ user }: ClubProps) => {
     <>
       <ClubProfile
         name={club?.name || ""}
+        coverImage={club?.coverImage}
+        profileImage={club?.profileImage}
         tabs={tabs}
         membersCount={members.length}
         role={userRole}
